@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
-    <title>Jeecg 微云快速开发平台</title>
+    <title><t:mutiLang langKey="jeect.platform"/></title>
     <link rel="shortcut icon" href="images/favicon.ico">
     <link href="plug-in/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="plug-in/hplus/css/font-awesome.css?v=4.4.0" rel="stylesheet">
@@ -46,6 +46,12 @@
 	.flot-chart{
 		height:400px;
 	}
+    .welcome{
+        background-color: #FFFFFF;
+        height: 100%;
+        text-align: center;
+        padding-top: 50px;
+    }
    /*  .top-navigation .wrapper.wrapper-content{padding:20px 5px !important;}
 	.container {
     	 width:99% !important; margin:10px;
@@ -72,6 +78,10 @@
     </style>
 </head>
  <body class="gray-bg">
+ <div class="welcome">
+     <img src="/images/index_welcome.png" alt="欢迎使用船货管理系统">
+ </div>
+ <%--
         <div class="wrapper wrapper-content">
            
 			<div class="row">
@@ -1384,5 +1394,5 @@ $(document).ready(function() {
 </script>
 <!--统计代码，可删除-->
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-</body>
+--%></body>
 </html>

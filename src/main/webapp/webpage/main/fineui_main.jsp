@@ -9,8 +9,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<link rel="fineui-icon" href="images/favicon.ico">
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<meta name="keywords" content="JEECG 企业级快速开发平台">
-    <meta name="description" content="JEECG 企业级快速开发平台，她采用强大代码生成，在线开发能力">
+	<%--<meta name="keywords" content="JEECG 企业级快速开发平台">--%>
+    <%--<meta name="description" content="JEECG 企业级快速开发平台，她采用强大代码生成，在线开发能力">--%>
     <title><t:mutiLang langKey="jeect.platform"/></title>
     <link href="plug-in/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 	<link rel="stylesheet" href="plug-in/themes/fineui/common/css/sccl.css">
@@ -141,8 +141,9 @@
 	<div class="layout-admin">
 		<!-- top -->
 		<header class="layout-header">
-			<span class="header-logo"><img alt="image" width="190" height="68" src="plug-in/login/images/jeecg-aceplus.png" /></span>
-			
+			<%--<span class="header-logo"><img alt="image" width="190" height="68" src="plug-in/login/images/jeecg-aceplus.png" /></span>--%>
+			<span class="header-logo"><t:mutiLang langKey="jeect.platform"/></span>
+
 			<div class="titlerow" >
 				<div class="titlecell">
 					<input id="searchbox" name="functionName" placeholder="请输入搜索关键字" class="searchbox" style="padding-right: 23px;border:0">
@@ -159,23 +160,23 @@
 				<span>控制面板</span>
 				<i class="icon-font adminIcon" style="margin-right:5px;">&#xe607;</i>
 				<ul class="header-dropdown-menu" style="padding-right:4px">
-					<li>
+					<%--<li>
 	                         <a href="javascript:createdetailwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?goMySmsList',800,400)" title="系统消息">系统消息</a>
 					</li>
 					<li >
 	                         <a href="javascript:window.open('http://yun.jeecg.org')" title="云应用中心">云应用中心</a>
-					</li>
+					</li>--%>
 					<li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
 					<li><a href="javascript:toSwagger()">SwaggerUI</a></li>
 				</ul>
 			</li> 
 			
 			
-			<li class="header-bar-nav hiddenty-xs"> 
+			<%--<li class="header-bar-nav hiddenty-xs">
 				<a href="javascript:add('首页风格','userController.do?changestyle','',550,250)" title="换肤">
 					<i class="icon-font">&#xe615;</i>&nbsp;风格切换
 				</a>
-			</li> 
+			</li> --%>
 				
 				
 			<li class="header-bar-nav personInfo">

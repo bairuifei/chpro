@@ -45,7 +45,7 @@ public class SwaggerConfig {
                 .title("基础平台 RESTful APIs")
                 .description("基础平台 RESTful 风格的接口文档，内容详细，极大的减少了前后端的沟通成本，同时确保代码与文档保持高度一致，极大的减少维护文档的时间。")
                 .termsOfServiceUrl("http://www.jeeecg.org")
-                .contact("JEECG")
+                .contact("BRF")
                 .version("1.0.0")
                 .build();
     }
