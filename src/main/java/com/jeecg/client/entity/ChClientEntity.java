@@ -59,6 +59,8 @@ public class ChClientEntity implements java.io.Serializable {
 	/**手机号码*/
 	@Excel(name="手机号码",width=15)
 	private java.lang.String clientMobile;
+	/**登录密码*/
+	private java.lang.String clientPwd;
 	/**微信openID*/
 	private java.lang.String clientOpenid;
 	/**公众号*/
@@ -303,6 +305,16 @@ public class ChClientEntity implements java.io.Serializable {
 	public void setClientMobile(java.lang.String clientMobile){
 		this.clientMobile = clientMobile;
 	}
+
+	@Column(name ="CLIENT_PWD",nullable=false,length=32)
+	public String getClientPwd() {
+		return clientPwd;
+	}
+
+	public void setClientPwd(String clientPwd) {
+		this.clientPwd = clientPwd;
+	}
+
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  微信openID

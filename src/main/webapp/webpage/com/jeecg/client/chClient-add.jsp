@@ -8,7 +8,7 @@
 <title>用户表</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<t:base type="bootstrap,layer,validform,webuploader,bootstrap-form"></t:base>
+<t:base type="bootstrap,layer,validform,webuploader,bootstrap-form,bootstrap-table"></t:base>
 </head>
  <body style="overflow:hidden;overflow-y:auto;">
  <div class="container" style="width:100%;">
@@ -29,7 +29,7 @@
 			<label for="clientSex" class="col-sm-3 control-label">性别：</label>
 			<div class="col-sm-7">
 				<div class="input-group" style="width:100%">
-					<t:dictSelect field="clientSex" type="radio" extendJson="{class:'i-checks'}"  typeGroupCode="sex"  hasLabel="false"  title="性别"></t:dictSelect>
+					<t:dictSelect field="clientSex" type="radio" extendJson="{class:'i-checks'}"  typeGroupCode="sex"  hasLabel="false"  datatype="*" title="性别"></t:dictSelect>
 				</div>
 			</div>
 		</div>
@@ -38,6 +38,22 @@
 			<div class="col-sm-7">
 				<div class="input-group" style="width:100%">
 					<input id="clientMobile" name="clientMobile" type="text" maxlength="32" class="form-control input-sm" placeholder="请输入手机号码"  datatype="m" ignore="checked" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="clientMobile" class="col-sm-3 control-label">登录密码：</label>
+			<div class="col-sm-7">
+				<div class="input-group" style="width:100%">
+					<input id="clientPwd" name="clientPwd" type="password" maxlength="32" class="form-control input-sm" placeholder="请输入登录密码"  datatype="*" ignore="checked" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="clientMobile" class="col-sm-3 control-label">确认登录密码：</label>
+			<div class="col-sm-7">
+				<div class="input-group" style="width:100%">
+					<input id="clientConfirmPwd" type="password" maxlength="32" class="form-control input-sm" placeholder="请再次输入登录密码" onblur="confirmPwd()"  datatype="*" ignore="checked" />
 				</div>
 			</div>
 		</div>
@@ -87,6 +103,7 @@
 	</div>
  </div>
 <script type="text/javascript">
+	var confpwd = true;
 //日期时间选择器
 laydate.render({
 	elem: '.laydate-datetime'
@@ -116,6 +133,10 @@ $(document).ready(function() {
 		btnReset : "#btn_reset",
 		ajaxPost : true,
 		beforeSubmit : function(curform) {
+		    if (!confpwd){
+                tip("两次密码输入不一致",'错误');
+			}
+			return confpwd;
 		},
 		usePlugin : {
 			passwordstrength : {
@@ -158,6 +179,14 @@ $(document).ready(function() {
 	});
 		
 });
+function confirmPwd(){
+	if ($("#clientConfirmPwd").val() != $("#clientPwd").val()){
+        confpwd = false;
+        tip("两次密码输入不一致",'错误');
+    }else {
+        confpwd = true;
+	}
+}
 </script>
 </body>
 </html>
