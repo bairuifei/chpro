@@ -19,33 +19,33 @@
    <t:dgCol title="卸货港"  field="huopanEnd"  query="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="卸货港码头"  field="huopanEndPort"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="装货日期"  field="huopanDate"  formatter="yyyy-MM-dd"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="装货日期误差"  field="huopanDateWucha"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="装货日期误差"  field="huopanDateWucha"   hidden="true" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="货物名称"  field="huopanName"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="货量"  field="huopanCount"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="备注"  field="huopanNote"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="空船范围"  field="huopanShipPosition"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="船舶载重吨最小"  field="huopanShipZaizhongMin"  query="true"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="船舶载重吨最大"  field="huopanShipZaizhongMax"  query="true"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="船舶数量"  field="huopanShipCount"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="封舱"  field="huopanShipFengcang"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="水尺"  field="huopanShipShuichi"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="驾驶舱位置"  field="huopanShipDriveLocation"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="船口结构"  field="huopanShipChuankou"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="打孔"  field="huopanShipDakong"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="吃水"  field="huopanShipChishui"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="船长"  field="huopanShipLength"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="船宽"  field="huopanShipWidth"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="船高"  field="huopanShipHigh"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="舱口长"  field="huopanShipCangLength"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="舱口宽"  field="huopanShipCangWidth"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="舱口深"  field="huopanShipCangDeep"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="运价"  field="huopanFeeYun"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="开航费"  field="huopanFeeKaihang"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="滞期费"  field="huopanFeeZhiqi"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="两港装卸时间"  field="huopanFeeLoadtime"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="结算方式"  field="huopanFeeJstype"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="付款方式"  field="huopanFeePaytype"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="审核状态"  field="huopanAudit"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="空船范围"  field="huopanShipPosition"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="船舶载重吨最小"  field="huopanShipZaizhongMin"   hidden="true" query="true"  queryMode="group"  width="120"></t:dgCol>
+   <t:dgCol title="船舶载重吨最大"  field="huopanShipZaizhongMax"   hidden="true" query="true"  queryMode="group"  width="120"></t:dgCol>
+   <t:dgCol title="船舶数量"  field="huopanShipCount"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="封舱"  field="huopanShipFengcang"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="水尺"  field="huopanShipShuichi"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="驾驶舱位置"  field="huopanShipDriveLocation"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="船口结构"  field="huopanShipChuankou"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="打孔"  field="huopanShipDakong"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="吃水"  field="huopanShipChishui"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="船长"  field="huopanShipLength"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="船宽"  field="huopanShipWidth"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="船高"  field="huopanShipHigh"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="舱口长"  field="huopanShipCangLength"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="舱口宽"  field="huopanShipCangWidth"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="舱口深"  field="huopanShipCangDeep"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="运价"  field="huopanFeeYun"   hidden="true" queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="开航费"  field="huopanFeeKaihang"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="滞期费"  field="huopanFeeZhiqi"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="两港装卸时间"  field="huopanFeeLoadtime"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="结算方式"  field="huopanFeeJstype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="付款方式"  field="huopanFeePaytype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="审核状态"  field="huopanAudit"  query="true"  queryMode="single" dictionary="audit"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chHuopanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
    <t:dgToolBar title="录入" icon="icon-add" url="chHuopanController.do?goAdd" funname="add"  width="800" height="500"></t:dgToolBar>

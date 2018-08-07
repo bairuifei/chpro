@@ -96,6 +96,7 @@ public class BaseTag extends JeecgTag {
 			sb.append("<script type=\"text/javascript\" src=\""+basePath+"/plug-in/jquery/jquery.cookie.js\" ></script>");
 			sb.append("<script type=\"text/javascript\" src=\""+basePath+"/plug-in/jquery-plugs/storage/jquery.storageapi.min.js\" ></script>");
 			sb.append("<script type=\"text/javascript\" src=\""+basePath+"/plug-in/jquery-plugs/i18n/jquery.i18n.properties.js\"></script>");
+			sb.append("<script type=\"text/javascript\" src=\""+basePath+"/plug-in/hplus/plugins/fullavatareditor/scripts/jQuery.dialog.js\"></script>");
 		}
 		if (oConvertUtils.isIn("ckeditor", types)) {
 			sb.append("<script type=\"text/javascript\" src=\""+basePath+"/plug-in/ckeditor/ckeditor.js\"></script>");

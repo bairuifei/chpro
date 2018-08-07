@@ -8,7 +8,7 @@
 <title>货盘</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<t:base type="bootstrap,layer,validform,bootstrap-form"></t:base>
+<t:base type="jquery,easyui,tools,autocomplete,bootstrap,layer,validform,bootstrap-form"></t:base>
 </head>
  <body style="overflow:hidden;overflow-y:auto;">
  <div class="container" style="width:100%;">
@@ -24,7 +24,7 @@
 					装货港：
 				</div>
 				<div class="col-md-9 col-sm-9 col-xs-9 bt-content">
-	            	<t:dictSelect field="huopanBegin" type="select" hasLabel="false" title="装货港" extendJson="{class:'form-control input-sm'}"   typeGroupCode="" ></t:dictSelect>
+	            	<t:dictSelect field="huopanBegin" type="select" hasLabel="false" title="装货港" extendJson="{class:'form-control input-sm'}" dictTable="ch_position" dictText="position_name" dictField="id" ></t:dictSelect>
 				</div>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 					卸货港：
 				</div>
 				<div class="col-md-9 col-sm-9 col-xs-9 bt-content">
-	            	<t:dictSelect field="huopanEnd" type="select" hasLabel="false" title="卸货港" extendJson="{class:'form-control input-sm'}"   typeGroupCode="" ></t:dictSelect>
+	            	<t:dictSelect field="huopanEnd" type="select" hasLabel="false" title="卸货港" extendJson="{class:'form-control input-sm'}"  dictTable="ch_position" dictText="position_name" dictField="id"></t:dictSelect>
 				</div>
 			</div>
 		</div>
@@ -114,7 +114,9 @@
 					空船范围：
 				</div>
 				<div class="col-md-9 col-sm-9 col-xs-9 bt-content">
-					<input name="huopanShipPosition" type="text" class="form-control input-sm" maxlength="200"  ignore="ignore"  />
+					<input id="huopanShipPosition" name="huopanShipPosition" type="hidden"/>
+					<input name="showName" id="showName" type="text" class="form-control input-sm" datatype="*"  ignore="ignore"  />
+					<t:choose hiddenName="huopanShipPosition" hiddenid="id" inputTextname="showName" textname="positionName" url="chPositionController.do?list" name="chPositionList" icon="icon-search" title="选择空船范围" isclear="true" isInit="true"></t:choose>
 				</div>
 			</div>
 		</div>
@@ -333,6 +335,7 @@
 	</div>
  </div>
 <script type="text/javascript">
+	$.dialog()
 var subDlgIndex = '';
 $(document).ready(function() {
 	$(".laydate-datetime").each(function(){
