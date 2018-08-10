@@ -24,6 +24,7 @@ public class ChClientServiceImpl extends CommonServiceImpl implements ChClientSe
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
  	public void delete(ChClientEntity entity) throws Exception{
  		super.delete(entity);
  	}

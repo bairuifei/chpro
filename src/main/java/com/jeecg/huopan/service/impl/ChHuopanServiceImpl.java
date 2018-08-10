@@ -24,6 +24,7 @@ public class ChHuopanServiceImpl extends CommonServiceImpl implements ChHuopanSe
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
  	public void delete(ChHuopanEntity entity) throws Exception{
  		super.delete(entity);
  	}

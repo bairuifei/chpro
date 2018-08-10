@@ -24,6 +24,7 @@ public class ChPositionServiceImpl extends CommonServiceImpl implements ChPositi
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
  	public void delete(ChPositionEntity entity) throws Exception{
  		super.delete(entity);
  	}

@@ -1,9 +1,9 @@
 package com.jeecg.position.controller;
 import com.jeecg.position.entity.ChPositionEntity;
 import com.jeecg.position.service.ChPositionServiceI;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,41 +11,47 @@ import org.jeecgframework.core.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.jeecgframework.core.common.controller.BaseController;
 import org.jeecgframework.core.common.exception.BusinessException;
 import org.jeecgframework.core.common.hibernate.qbc.CriteriaQuery;
+import org.jeecgframework.core.common.model.common.TreeChildCount;
 import org.jeecgframework.core.common.model.json.AjaxJson;
 import org.jeecgframework.core.common.model.json.DataGrid;
 import org.jeecgframework.core.constant.Globals;
 import org.jeecgframework.tag.core.easyui.TagUtil;
+import org.jeecgframework.web.system.pojo.base.TSDepart;
 import org.jeecgframework.web.system.service.SystemService;
 
 import java.io.OutputStream;
+
 import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.ImportParams;
+import org.jeecgframework.poi.excel.entity.TemplateExportParams;
 import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
+import org.jeecgframework.poi.excel.entity.vo.TemplateExcelConstants;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**   
  * @Title: Controller  
  * @Description: 地点
  * @author onlineGenerator
- * @date 2018-08-05 16:34:14
+ * @date 2018-08-09 19:46:03
  * @version V1.0   
  *
  */
@@ -87,7 +93,6 @@ public class ChPositionController extends BaseController {
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, chPosition, request.getParameterMap());
 		try{
 		//自定义追加查询条件
-		
 		}catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
@@ -149,7 +154,7 @@ public class ChPositionController extends BaseController {
 	}
 
 	/**
-	 * 批量关联地点
+	 * 批量删除地点
 	 *
 	 * @return
 	 */
@@ -160,12 +165,12 @@ public class ChPositionController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		message = "地点关联成功";
 		try{
-			String typecode = UUIDGenerator.generate();
+			String uuid = UUIDGenerator.generate();
 			for(String id:ids.split(",")){
 				ChPositionEntity chPosition = systemService.getEntity(ChPositionEntity.class,
 						id
 				);
-				chPosition.setPositionTypeCode(typecode);
+				chPosition.setPositionTypeCode(uuid);
 				chPositionService.updateEntitie(chPosition);
 				systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 			}
@@ -238,7 +243,7 @@ public class ChPositionController extends BaseController {
 	public ModelAndView goAdd(ChPositionEntity chPosition, HttpServletRequest req) {
 		if (StringUtil.isNotEmpty(chPosition.getId())) {
 			chPosition = chPositionService.getEntity(ChPositionEntity.class, chPosition.getId());
-			req.setAttribute("chPosition", chPosition);
+			req.setAttribute("chPositionPage", chPosition);
 		}
 		return new ModelAndView("com/jeecg/position/chPosition-add");
 	}
@@ -251,7 +256,7 @@ public class ChPositionController extends BaseController {
 	public ModelAndView goUpdate(ChPositionEntity chPosition, HttpServletRequest req) {
 		if (StringUtil.isNotEmpty(chPosition.getId())) {
 			chPosition = chPositionService.getEntity(ChPositionEntity.class, chPosition.getId());
-			req.setAttribute("chPosition", chPosition);
+			req.setAttribute("chPositionPage", chPosition);
 		}
 		return new ModelAndView("com/jeecg/position/chPosition-update");
 	}
@@ -325,7 +330,7 @@ public class ChPositionController extends BaseController {
 				j.setMsg("文件导入成功！");
 			} catch (Exception e) {
 				j.setMsg("文件导入失败！");
-				logger.error(ExceptionUtil.getExceptionMessage(e));
+				logger.error(e.getMessage());
 			}finally{
 				try {
 					file.getInputStream().close();

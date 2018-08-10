@@ -24,6 +24,7 @@ public class ChShipServiceImpl extends CommonServiceImpl implements ChShipServic
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
  	public void delete(ChShipEntity entity) throws Exception{
  		super.delete(entity);
  	}

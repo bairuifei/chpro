@@ -1,192 +1,190 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>用户表</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<t:base type="bootstrap,layer,validform,webuploader,bootstrap-form,bootstrap-table"></t:base>
-</head>
- <body style="overflow:hidden;overflow-y:auto;">
- <div class="container" style="width:100%;">
-	<div class="panel-heading"></div>
-	<div class="panel-body">
-	<form class="form-horizontal" role="form" id="formobj" action="chClientController.do?doAdd" method="POST">
-		<input type="hidden" id="btn_sub" class="btn_sub"/>
-		<input type="hidden" id="id" name="id"/>
-		<div class="form-group">
-			<label for="clientName" class="col-sm-3 control-label">姓名：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientName" name="clientName" type="text" maxlength="32" class="form-control input-sm" placeholder="请输入姓名"  datatype="*"  ignore="checked" />
-				</div>
-			</div>
+<html>
+ <head>
+  <title>用户表</title>
+  <t:base type="jquery,easyui,tools,DatePicker"></t:base>
+  <link rel="stylesheet" href="plug-in/uploadify/css/uploadify.css" type="text/css" />
+  <script type="text/javascript" src="plug-in/uploadify/jquery.uploadify-3.1.js"></script>
+  <script type="text/javascript">
+  //编写自定义JS代码
+  </script>
+ </head>
+ <body>
+  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="chClientController.do?doAdd" callback="jeecgFormFileCallBack@Override">
+					<input id="id" name="id" type="hidden" value="${chClientPage.id }"/>
+		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							姓名:
+						</label>
+					</td>
+					<td class="value">
+					     	 <input id="clientName" name="clientName" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="*"  ignore="checked" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">姓名</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							性别:
+						</label>
+					</td>
+					<td class="value">
+							  <t:dictSelect field="clientSex" type="radio"  datatype="*"  typeGroupCode="sex"  defaultVal="${chClientPage.clientSex}" hasLabel="false"  title="性别" ></t:dictSelect>
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">性别</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							手机号码:
+						</label>
+					</td>
+					<td class="value">
+					     	 <input id="clientMobile" name="clientMobile" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="m" ignore="checked" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">手机号码</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							头像:
+						</label>
+					</td>
+					<td class="value">
+		<div class="form jeecgDetail">
+			<t:webUploader name="clientHeadimg" displayTxt="false" auto="true" buttonText="选择图片" buttonStyle="btn-blue btn-S" type="image" fileNumLimit="1"></t:webUploader>
 		</div>
-		<div class="form-group">
-			<label for="clientSex" class="col-sm-3 control-label">性别：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<t:dictSelect field="clientSex" type="radio" extendJson="{class:'i-checks'}"  typeGroupCode="sex"  hasLabel="false"  datatype="*" title="性别"></t:dictSelect>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientMobile" class="col-sm-3 control-label">手机号码：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientMobile" name="clientMobile" type="text" maxlength="32" class="form-control input-sm" placeholder="请输入手机号码"  datatype="m" ignore="checked" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientMobile" class="col-sm-3 control-label">登录密码：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientPwd" name="clientPwd" type="password" maxlength="32" class="form-control input-sm" placeholder="请输入登录密码"  datatype="*" ignore="checked" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientMobile" class="col-sm-3 control-label">确认登录密码：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientConfirmPwd" type="password" maxlength="32" class="form-control input-sm" placeholder="请再次输入登录密码" onblur="confirmPwd()"  datatype="*" ignore="checked" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientHeadimg" class="col-sm-3 control-label">头像：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-				<t:webUploader name="clientHeadimg" outJs="true" auto="true" showImgDiv="filediv_clientHeadimg" type="image" buttonText='添加图片' displayTxt="false"></t:webUploader>
-				<div class="form" id="filediv_clientHeadimg"></div>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientRealname" class="col-sm-3 control-label">真实姓名：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientRealname" name="clientRealname" type="text" maxlength="32" class="form-control input-sm" placeholder="请输入真实姓名"  ignore="ignore" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientCreditid" class="col-sm-3 control-label">身份证号：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<input id="clientCreditid" name="clientCreditid" type="text" maxlength="32" class="form-control input-sm" datatype="/^\d{17}[\d|x]$/" placeholder="请输入身份证号"  ignore="ignore" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientVip" class="col-sm-3 control-label">是否VIP：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-					<t:dictSelect field="clientVip" type="radio" extendJson="{class:'i-checks'}"  typeGroupCode="sf_yn"  hasLabel="false"  title="是否VIP"></t:dictSelect>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="clientVipend" class="col-sm-3 control-label">VIP截止时间：</label>
-			<div class="col-sm-7">
-				<div class="input-group" style="width:100%">
-				<input name="clientVipend" type="text" class="form-control laydate-datetime"  ignore="ignore"  />
-				<span class="input-group-addon" ><span class="glyphicon glyphicon-calendar"></span></span>
-				</div>
-			</div>
-		</div>
-	</form>
-	</div>
- </div>
-<script type="text/javascript">
-	var confpwd = true;
-//日期时间选择器
-laydate.render({
-	elem: '.laydate-datetime'
-	,type: 'datetime'
-});
-var subDlgIndex = '';
-$(document).ready(function() {
-	//单选框/多选框初始化
-	$('.i-checks').iCheck({
-		labelHover : false,
-		cursor : true,
-		checkboxClass : 'icheckbox_square-blue',
-		radioClass : 'iradio_square-blue',
-		increaseArea : '20%'
-	});
-	
-	//表单提交
-	$("#formobj").Validform({
-		tiptype:function(msg,o,cssctl){
-			if(o.type==3){
-				validationMessage(o.obj,msg);
-			}else{
-				removeMessage(o.obj);
-			}
-		},
-		btnSubmit : "#btn_sub",
-		btnReset : "#btn_reset",
-		ajaxPost : true,
-		beforeSubmit : function(curform) {
-		    if (!confpwd){
-                tip("两次密码输入不一致",'错误');
-			}
-			return confpwd;
-		},
-		usePlugin : {
-			passwordstrength : {
-				minLen : 6,
-				maxLen : 18,
-				trigger : function(obj, error) {
-					if (error) {
-						obj.parent().next().find(".Validform_checktip").show();
-						obj.find(".passwordStrength").hide();
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">头像</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							真实姓名:
+						</label>
+					</td>
+					<td class="value">
+					     	 <input id="clientRealname" name="clientRealname" type="text" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">真实姓名</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							身份证号:
+						</label>
+					</td>
+					<td class="value">
+					     	 <input id="clientCreditid" name="clientCreditid" type="text" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">身份证号</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							是否VIP:
+						</label>
+					</td>
+					<td class="value">
+							  <t:dictSelect field="clientVip" type="radio"  typeGroupCode="sf_yn"  defaultVal="${chClientPage.clientVip}" hasLabel="false"  title="是否VIP" ></t:dictSelect>
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">是否VIP</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							VIP截止时间:
+						</label>
+					</td>
+					<td class="value">
+							   <input id="clientVipend" name="clientVipend" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">VIP截止时间</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							密码:
+						</label>
+					</td>
+					<td class="value">
+					      	<input id="clientPwd" name="clientPwd" type="password" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">密码</label>
+						</td>
+				</tr>
+				
+				
+			</table>
+		</t:formvalid>
+ </body>
+  <script src = "webpage/com/jeecg/client/chClient.js"></script>		
+	  	<script type="text/javascript">
+	  		function jeecgFormFileCallBack(data){
+	  			if (data.success == true) {
+					uploadFile(data);
+				} else {
+					if (data.responseText == '' || data.responseText == undefined) {
+						$.messager.alert('错误', data.msg);
+						$.Hidemsg();
 					} else {
-						$(".passwordStrength").show();
-						obj.parent().next().find(".Validform_checktip").hide();
+						try {
+							var emsg = data.responseText.substring(data.responseText.indexOf('错误描述'), data.responseText.indexOf('错误信息'));
+							$.messager.alert('错误', emsg);
+							$.Hidemsg();
+						} catch(ex) {
+							$.messager.alert('错误', data.responseText + '');
+						}
+					}
+					return false;
+				}
+				if (!neibuClickFlag) {
+					var win = frameElement.api.opener;
+					win.reloadTable();
+				}
+	  		}
+	  		function upload() {
+					$('#clientHeadimg').uploadify('upload', '*');	
+			}
+			
+			var neibuClickFlag = false;
+			function neibuClick() {
+				neibuClickFlag = true; 
+				$('#btn_sub').trigger('click');
+			}
+			function cancel() {
+					$('#clientHeadimg').uploadify('cancel', '*');
+			}
+			function uploadFile(data){
+				if(!$("input[name='id']").val()){
+					if(data.obj!=null && data.obj!='undefined'){
+						$("input[name='id']").val(data.obj.id);
+					}
+				}
+				if($(".uploadify-queue-item").length>0){
+					upload();
+				}else{
+					if (neibuClickFlag){
+						alert(data.msg);
+						neibuClickFlag = false;
+					}else {
+						var win = frameElement.api.opener;
+						win.reloadTable();
+						win.tip(data.msg);
+						frameElement.api.close();
 					}
 				}
 			}
-		},
-		callback : function(data) {
-			var win = frameElement.api.opener;
-			if (data.success == true) {
-				frameElement.api.close();
-			    win.reloadTable();
-			    win.tip(data.msg);
-			} else {
-			    if (data.responseText == '' || data.responseText == undefined) {
-			        $.messager.alert('错误', data.msg);
-			        $.Hidemsg();
-			    } else {
-			        try {
-			            var emsg = data.responseText.substring(data.responseText.indexOf('错误描述'), data.responseText.indexOf('错误信息'));
-			            $.messager.alert('错误', emsg);
-			            $.Hidemsg();
-			        } catch (ex) {
-			            $.messager.alert('错误', data.responseText + "");
-			            $.Hidemsg();
-			        }
-			    }
-			    return false;
-			}
-		}
-	});
-		
-});
-function confirmPwd(){
-	if ($("#clientConfirmPwd").val() != $("#clientPwd").val()){
-        confpwd = false;
-        tip("两次密码输入不一致",'错误');
-    }else {
-        confpwd = true;
-	}
-}
-</script>
-</body>
-</html>
+	  	</script>

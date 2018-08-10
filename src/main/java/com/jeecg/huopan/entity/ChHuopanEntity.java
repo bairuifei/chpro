@@ -22,7 +22,7 @@ import org.jeecgframework.poi.excel.annotation.Excel;
  * @Title: Entity
  * @Description: 货盘
  * @author onlineGenerator
- * @date 2018-08-05 18:00:38
+ * @date 2018-08-09 19:28:19
  * @version V1.0   
  *
  */
@@ -477,7 +477,7 @@ public class ChHuopanEntity implements java.io.Serializable {
 	 *@return: java.lang.String  空船范围
 	 */
 
-	@Column(name ="HUOPAN_SHIP_POSITION",nullable=true,length=200)
+	@Column(name ="HUOPAN_SHIP_POSITION",nullable=true,length=300)
 	public java.lang.String getHuopanShipPosition(){
 		return this.huopanShipPosition;
 	}

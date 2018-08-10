@@ -1545,6 +1545,7 @@ public class SystemController extends BaseController {
         String delFlag=request.getParameter("isdel");
         //String ctxPath = request.getSession().getServletContext().getRealPath("");
         String ctxPath=ResourceUtil.getConfigByName("webUploadpath");//demo中设置为D://upFiles,实际项目应因事制宜
+        String webUploaddbpath=ResourceUtil.getConfigByName("webUploaddbpath");//数据库存储前缀
         logger.debug("----ctxPath-----"+ctxPath);
         try {
 	        //如果是上传操作
@@ -1570,7 +1571,7 @@ public class SystemController extends BaseController {
 	    		FileCopyUtils.copy(mf.getBytes(), savefile);
 				msg="上传成功";
 				j.setMsg(msg);
-				String dbpath=bizPath+File.separator+nowday+File.separator+fileName;
+				String dbpath=webUploaddbpath+File.separator+bizPath+File.separator+nowday+File.separator+fileName;
 				logger.debug("---dbpath----"+dbpath);
 				j.setObj(dbpath);
 				//1、将文件路径赋值给obj,前台可获取之,随表单提交,然后数据库中存储该路径
