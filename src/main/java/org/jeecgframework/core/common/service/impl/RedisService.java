@@ -42,6 +42,13 @@ public class RedisService {
     }
 
     /**
+     *  将key和value存入redis，并设置有效时间，单位：秒
+     */
+    public void setSeconds(String key, String value, long timeout){
+        redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
+    }
+
+    /**
     *  将key和value存入redis
     */
     public void set(String key, String value){

@@ -134,6 +134,7 @@
 			    <property name="excludeUrls">
 					<list>
 						<value>/rest/v2/api-docs</value>
+						<value>/rest/client/yzCode</value>
 					</list>
 				</property>
 				<property name="excludeContainUrls">
