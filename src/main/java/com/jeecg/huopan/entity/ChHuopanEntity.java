@@ -6,16 +6,11 @@ import java.lang.String;
 import java.lang.Double;
 import java.lang.Integer;
 import java.math.BigDecimal;
+import javax.persistence.*;
 import javax.xml.soap.Text;
 import java.sql.Blob;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.SequenceGenerator;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
 /**   
@@ -80,6 +75,7 @@ public class ChHuopanEntity implements java.io.Serializable {
 	/**空船范围*/
 	@Excel(name="空船范围",width=15)
 	private java.lang.String huopanShipPosition;
+	private java.lang.String huopanShipPositionStr;
 	/**船舶载重吨最小*/
 	@Excel(name="船舶载重吨最小",width=15)
 	private java.lang.Integer huopanShipZaizhongMin;
@@ -862,5 +858,14 @@ public class ChHuopanEntity implements java.io.Serializable {
 	 */
 	public void setHuopanAudit(java.lang.String huopanAudit){
 		this.huopanAudit = huopanAudit;
+	}
+
+	@Transient
+	public String getHuopanShipPositionStr() {
+		return huopanShipPositionStr;
+	}
+
+	public void setHuopanShipPositionStr(String huopanShipPositionStr) {
+		this.huopanShipPositionStr = huopanShipPositionStr;
 	}
 }

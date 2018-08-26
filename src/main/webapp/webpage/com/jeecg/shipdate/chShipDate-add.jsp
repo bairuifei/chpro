@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>用户表</title>
+  <title>船期</title>
   <t:base type="jquery,easyui,tools,DatePicker"></t:base>
   <link rel="stylesheet" href="plug-in/uploadify/css/uploadify.css" type="text/css" />
   <script type="text/javascript" src="plug-in/uploadify/jquery.uploadify-3.1.js"></script>
@@ -12,136 +12,131 @@
   </script>
  </head>
  <body>
-  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="chClientController.do?doAdd" callback="jeecgFormFileCallBack@Override">
-					<input id="id" name="id" type="hidden" value="${chClientPage.id }"/>
+  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="chShipDateController.do?doAdd" callback="jeecgFormFileCallBack@Override">
+					<input id="id" name="id" type="hidden" value="${chShipDatePage.id }"/>
 		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							姓名:
+							船名:
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="clientName" name="clientName" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="*"  ignore="checked" />
+					     	 <input id="shipName" name="shipName" type="text" maxlength="200" style="width: 150px" class="inputxt"  ignore="ignore" />
 							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">姓名</label>
+							<label class="Validform_label" style="display: none;">船名</label>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							性别:
+							载重吨数:
 						</label>
 					</td>
 					<td class="value">
-							  <t:dictSelect field="clientSex" type="radio"  datatype="*"  typeGroupCode="sex"  defaultVal="${chClientPage.clientSex}" hasLabel="false"  title="性别" ></t:dictSelect>
+					     	 <input id="shipZaizhong" name="shipZaizhong" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" />
 							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">性别</label>
+							<label class="Validform_label" style="display: none;">载重吨数</label>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							手机号码:
+							空船日期:
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="clientMobile" name="clientMobile" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="m" ignore="checked" />
+							   <input id="shipEmptyDate" name="shipEmptyDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  ignore="ignore" />    
 							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">手机号码</label>
+							<label class="Validform_label" style="display: none;">空船日期</label>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							头像:
+							日期偏移天数:
+						</label>
+					</td>
+					<td class="value">
+					     	 <input id="shipEmptyDateCha" name="shipEmptyDateCha" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">日期偏移天数</label>
+						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							船图片:
 						</label>
 					</td>
 					<td class="value">
 		<div class="form jeecgDetail">
-			<t:webUploader name="clientHeadimg" displayTxt="false" auto="true" buttonText="选择图片" buttonStyle="btn-blue btn-S" type="image" fileNumLimit="1"></t:webUploader>
+			<t:webUploader name="shipImg" displayTxt="false" auto="true" buttonText="选择图片" buttonStyle="btn-blue btn-S" type="image" fileNumLimit="1"></t:webUploader>
 		</div>
 							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">头像</label>
+							<label class="Validform_label" style="display: none;">船图片</label>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							真实姓名:
+							空船港:
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="clientRealname" name="clientRealname" type="text" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">真实姓名</label>
+						<input id="shipFromPort" name="shipFromPort" type="hidden" value=""/>
+						<input name="chooseText" class="inputxt" value="" id="chooseText" readonly="readonly" datatype="*"/>
+						<t:choose hiddenName="shipFromPort" inputTextname="chooseText" hiddenid="id"
+								  textname="positionName" url="chPositionController.do?choose" name="chPositionList"
+								  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							身份证号:
+							目的港:
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="clientCreditid" name="clientCreditid" type="text" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">身份证号</label>
+						<input id="shipToPorts" name="shipToPorts" type="hidden" value=""/>
+						<input name="chooseText1" class="inputxt" value="" id="chooseText1" readonly="readonly" datatype="*"/>
+						<t:choose hiddenName="shipToPorts" inputTextname="chooseText1" hiddenid="id"
+								  textname="positionName" url="chPositionController.do?choose" name="chPositionList"
+								  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 						</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							是否VIP:
+							备用装货港:
 						</label>
 					</td>
 					<td class="value">
-							  <t:dictSelect field="clientVip" type="radio"  typeGroupCode="sf_yn"  defaultVal="${chClientPage.clientVip}" hasLabel="false"  title="是否VIP" ></t:dictSelect>
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">是否VIP</label>
+						<input id="shipStayPorts" name="shipStayPorts" type="hidden" value=""/>
+						<input name="chooseText2" class="inputxt" value="" id="chooseText2" readonly="readonly" datatype="*"/>
+						<t:choose hiddenName="shipStayPorts" inputTextname="chooseText2" hiddenid="id"
+								  textname="positionName" url="chPositionController.do?choose" name="chPositionList"
+								  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 						</td>
-				</tr>
-				<tr>
-					<td align="right">
-						<label class="Validform_label">
-							VIP截止时间:
-						</label>
-					</td>
-					<td class="value">
-							   <input id="clientVipend" name="clientVipend" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  ignore="ignore" />
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">VIP截止时间</label>
-						</td>
-				</tr>
-				<tr>
-					<td align="right">
-						<label class="Validform_label">
-							密码:
-						</label>
-					</td>
-					<td class="value">
-					      	<input id="clientPwd" name="clientPwd" type="password" maxlength="32" style="width: 150px" class="inputxt"  ignore="ignore" />
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">密码</label>
-						</td>
-				</tr>
-				<tr>
-					<td align="right">
-						<label class="Validform_label">
-							客户类型:
-						</label>
-					</td>
-					<td class="value">
-						<t:dictSelect field="clientType" type="radio"  typeGroupCode="clientType"  defaultVal="${chClientPage.clientType}" hasLabel="false"  title="客户类型" ></t:dictSelect>
-						<span class="Validform_checktip"></span>
-						<label class="Validform_label" style="display: none;">客户类型</label>
-					</td>
 				</tr>
 				
+				
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							备注:
+						</label>
+					</td>
+					<td class="value" >
+						  	 <textarea style="width:600px;" class="inputxt" rows="6" id="shipNote" name="shipNote"  ignore="ignore" ></textarea>
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">备注</label>
+						</td>
+					</tr>
 			</table>
 		</t:formvalid>
  </body>
-  <script src = "webpage/com/jeecg/client/chClient.js"></script>		
+  <script src = "webpage/com/jeecg/shipdate/chShipDate.js"></script>		
 	  	<script type="text/javascript">
 	  		function jeecgFormFileCallBack(data){
 	  			if (data.success == true) {
@@ -167,7 +162,7 @@
 				}
 	  		}
 	  		function upload() {
-					$('#clientHeadimg').uploadify('upload', '*');	
+					$('#shipImg').uploadify('upload', '*');	
 			}
 			
 			var neibuClickFlag = false;
@@ -176,7 +171,7 @@
 				$('#btn_sub').trigger('click');
 			}
 			function cancel() {
-					$('#clientHeadimg').uploadify('cancel', '*');
+					$('#shipImg').uploadify('cancel', '*');
 			}
 			function uploadFile(data){
 				if(!$("input[name='id']").val()){

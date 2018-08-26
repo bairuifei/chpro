@@ -14,9 +14,9 @@
    <t:dgCol title="所属部门"  field="sysOrgCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
-   <t:dgCol title="装货港"  field="huopanBegin"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="装货港"  field="huopanBegin"  query="true"  dictionary="ch_position,id,position_name" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="装货港码头"  field="huopanBeginPort"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="卸货港"  field="huopanEnd"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="卸货港"  field="huopanEnd"  query="true" dictionary="ch_position,id,position_name" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="卸货港码头"  field="huopanEndPort"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="装货日期"  field="huopanDate"  formatter="yyyy-MM-dd"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="装货日期误差"  field="huopanDateWucha"  queryMode="single"  width="120"></t:dgCol>
@@ -45,7 +45,7 @@
    <t:dgCol title="两港装卸时间"  field="huopanFeeLoadtime"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="结算方式"  field="huopanFeeJstype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="付款方式"  field="huopanFeePaytype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="审核状态"  field="huopanAudit"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="审核状态"  field="huopanAudit"  query="true" dictionary="audit"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chHuopanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
    <t:dgToolBar title="录入" icon="icon-add" url="chHuopanController.do?goAdd" funname="add"></t:dgToolBar>

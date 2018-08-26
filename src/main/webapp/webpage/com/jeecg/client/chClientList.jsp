@@ -25,6 +25,7 @@
    <t:dgCol title="是否VIP"  field="clientVip"  query="true" dictionary="sf_yn"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="VIP截止时间"  field="clientVipend"  formatter="yyyy-MM-dd hh:mm:ss"  query="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="密码"  field="clientPwd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="客户类型"  field="clientType"  dictionary="clientType"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chClientController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
    <t:dgToolBar title="录入" icon="icon-add" url="chClientController.do?goAdd" funname="add"></t:dgToolBar>

@@ -77,6 +77,14 @@ public class ChPositionController extends BaseController {
 		return new ModelAndView("com/jeecg/position/chPositionList");
 	}
 
+	@RequestMapping(params = "choose")
+	public ModelAndView choose(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("com/jeecg/position/chPositionChoose");
+		String ids = oConvertUtils.getString(request.getParameter("ids"));
+		mv.addObject("ids", ids);
+		return mv;
+	}
+
 	/**
 	 * easyui AJAX请求数据
 	 * 

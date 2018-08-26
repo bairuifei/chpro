@@ -1,13 +1,12 @@
-package com.jeecg.huopan.controller;
-import com.jeecg.huopan.entity.ChHuopanEntity;
-import com.jeecg.huopan.service.ChHuopanServiceI;
+package com.jeecg.relate.controller;
+import com.jeecg.relate.entity.ChClientRelateEntity;
+import com.jeecg.relate.service.ChClientRelateServiceI;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeecg.position.entity.ChPositionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,32 +51,32 @@ import org.jeecgframework.core.util.ExceptionUtil;
 
 /**   
  * @Title: Controller  
- * @Description: 货盘
+ * @Description: 客户关系
  * @author onlineGenerator
- * @date 2018-08-09 19:28:19
+ * @date 2018-08-24 19:37:03
  * @version V1.0   
  *
  */
 @Controller
-@RequestMapping("/chHuopanController")
-public class ChHuopanController extends BaseController {
-	private static final Logger logger = LoggerFactory.getLogger(ChHuopanController.class);
+@RequestMapping("/chClientRelateController")
+public class ChClientRelateController extends BaseController {
+	private static final Logger logger = LoggerFactory.getLogger(ChClientRelateController.class);
 
 	@Autowired
-	private ChHuopanServiceI chHuopanService;
+	private ChClientRelateServiceI chClientRelateService;
 	@Autowired
 	private SystemService systemService;
 	
 
 
 	/**
-	 * 货盘列表 页面跳转
+	 * 客户关系列表 页面跳转
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "list")
 	public ModelAndView list(HttpServletRequest request) {
-		return new ModelAndView("com/jeecg/huopan/chHuopanList");
+		return new ModelAndView("com/jeecg/relate/chClientRelateList");
 	}
 
 	/**
@@ -90,38 +89,38 @@ public class ChHuopanController extends BaseController {
 	 */
 
 	@RequestMapping(params = "datagrid")
-	public void datagrid(ChHuopanEntity chHuopan,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
-		CriteriaQuery cq = new CriteriaQuery(ChHuopanEntity.class, dataGrid);
+	public void datagrid(ChClientRelateEntity chClientRelate,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+		CriteriaQuery cq = new CriteriaQuery(ChClientRelateEntity.class, dataGrid);
 		//查询条件组装器
-		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, chHuopan, request.getParameterMap());
+		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, chClientRelate, request.getParameterMap());
 		try{
 		//自定义追加查询条件
 		}catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
 		cq.add();
-		this.chHuopanService.getDataGridReturn(cq, true);
+		this.chClientRelateService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);
 	}
 	
 	/**
-	 * 删除货盘
+	 * 删除客户关系
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "doDel")
 	@ResponseBody
-	public AjaxJson doDel(ChHuopanEntity chHuopan, HttpServletRequest request) {
+	public AjaxJson doDel(ChClientRelateEntity chClientRelate, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		chHuopan = systemService.getEntity(ChHuopanEntity.class, chHuopan.getId());
-		message = "货盘删除成功";
+		chClientRelate = systemService.getEntity(ChClientRelateEntity.class, chClientRelate.getId());
+		message = "客户关系删除成功";
 		try{
-			chHuopanService.delete(chHuopan);
+			chClientRelateService.delete(chClientRelate);
 			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "货盘删除失败";
+			message = "客户关系删除失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -129,7 +128,7 @@ public class ChHuopanController extends BaseController {
 	}
 	
 	/**
-	 * 批量删除货盘
+	 * 批量删除客户关系
 	 * 
 	 * @return
 	 */
@@ -138,18 +137,18 @@ public class ChHuopanController extends BaseController {
 	public AjaxJson doBatchDel(String ids,HttpServletRequest request){
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "货盘删除成功";
+		message = "客户关系删除成功";
 		try{
 			for(String id:ids.split(",")){
-				ChHuopanEntity chHuopan = systemService.getEntity(ChHuopanEntity.class, 
+				ChClientRelateEntity chClientRelate = systemService.getEntity(ChClientRelateEntity.class, 
 				id
 				);
-				chHuopanService.delete(chHuopan);
+				chClientRelateService.delete(chClientRelate);
 				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "货盘删除失败";
+			message = "客户关系删除失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -158,24 +157,23 @@ public class ChHuopanController extends BaseController {
 
 
 	/**
-	 * 添加货盘
+	 * 添加客户关系
 	 * 
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(params = "doAdd")
 	@ResponseBody
-	public AjaxJson doAdd(ChHuopanEntity chHuopan, HttpServletRequest request) {
+	public AjaxJson doAdd(ChClientRelateEntity chClientRelate, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "货盘添加成功";
+		message = "客户关系添加成功";
 		try{
-			chHuopan.setHuopanAudit("auditing");
-			chHuopanService.save(chHuopan);
+			chClientRelateService.save(chClientRelate);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "货盘添加失败";
+			message = "客户关系添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -183,25 +181,25 @@ public class ChHuopanController extends BaseController {
 	}
 	
 	/**
-	 * 更新货盘
+	 * 更新客户关系
 	 * 
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(params = "doUpdate")
 	@ResponseBody
-	public AjaxJson doUpdate(ChHuopanEntity chHuopan, HttpServletRequest request) {
+	public AjaxJson doUpdate(ChClientRelateEntity chClientRelate, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "货盘更新成功";
-		ChHuopanEntity t = chHuopanService.get(ChHuopanEntity.class, chHuopan.getId());
+		message = "客户关系更新成功";
+		ChClientRelateEntity t = chClientRelateService.get(ChClientRelateEntity.class, chClientRelate.getId());
 		try {
-			MyBeanUtils.copyBeanNotNull2Bean(chHuopan, t);
-			chHuopanService.saveOrUpdate(t);
+			MyBeanUtils.copyBeanNotNull2Bean(chClientRelate, t);
+			chClientRelateService.saveOrUpdate(t);
 			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			message = "货盘更新失败";
+			message = "客户关系更新失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -210,39 +208,30 @@ public class ChHuopanController extends BaseController {
 	
 
 	/**
-	 * 货盘新增页面跳转
+	 * 客户关系新增页面跳转
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "goAdd")
-	public ModelAndView goAdd(ChHuopanEntity chHuopan, HttpServletRequest req) {
-		if (StringUtil.isNotEmpty(chHuopan.getId())) {
-			chHuopan = chHuopanService.getEntity(ChHuopanEntity.class, chHuopan.getId());
-			req.setAttribute("chHuopanPage", chHuopan);
+	public ModelAndView goAdd(ChClientRelateEntity chClientRelate, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(chClientRelate.getId())) {
+			chClientRelate = chClientRelateService.getEntity(ChClientRelateEntity.class, chClientRelate.getId());
+			req.setAttribute("chClientRelatePage", chClientRelate);
 		}
-		return new ModelAndView("com/jeecg/huopan/chHuopan-add");
+		return new ModelAndView("com/jeecg/relate/chClientRelate-add");
 	}
 	/**
-	 * 货盘编辑页面跳转
+	 * 客户关系编辑页面跳转
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "goUpdate")
-	public ModelAndView goUpdate(ChHuopanEntity chHuopan, HttpServletRequest req) {
-		if (StringUtil.isNotEmpty(chHuopan.getId())) {
-			chHuopan = chHuopanService.getEntity(ChHuopanEntity.class, chHuopan.getId());
-			if (StringUtil.isNotEmpty(chHuopan.getHuopanShipPosition())){
-				StringBuffer sb = new StringBuffer();
-				String[] ids = chHuopan.getHuopanShipPosition().split(",");
-				for (String id : ids){
-					ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
-					sb.append(position.getPositionName()).append(",");
-				}
-				chHuopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
-			}
-			req.setAttribute("chHuopanPage", chHuopan);
+	public ModelAndView goUpdate(ChClientRelateEntity chClientRelate, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(chClientRelate.getId())) {
+			chClientRelate = chClientRelateService.getEntity(ChClientRelateEntity.class, chClientRelate.getId());
+			req.setAttribute("chClientRelatePage", chClientRelate);
 		}
-		return new ModelAndView("com/jeecg/huopan/chHuopan-update");
+		return new ModelAndView("com/jeecg/relate/chClientRelate-update");
 	}
 	
 	/**
@@ -252,7 +241,7 @@ public class ChHuopanController extends BaseController {
 	 */
 	@RequestMapping(params = "upload")
 	public ModelAndView upload(HttpServletRequest req) {
-		req.setAttribute("controller_name","chHuopanController");
+		req.setAttribute("controller_name","chClientRelateController");
 		return new ModelAndView("common/upload/pub_excel_upload");
 	}
 	
@@ -263,16 +252,16 @@ public class ChHuopanController extends BaseController {
 	 * @param response
 	 */
 	@RequestMapping(params = "exportXls")
-	public String exportXls(ChHuopanEntity chHuopan,HttpServletRequest request,HttpServletResponse response
+	public String exportXls(ChClientRelateEntity chClientRelate,HttpServletRequest request,HttpServletResponse response
 			, DataGrid dataGrid,ModelMap modelMap) {
-		CriteriaQuery cq = new CriteriaQuery(ChHuopanEntity.class, dataGrid);
-		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, chHuopan, request.getParameterMap());
-		List<ChHuopanEntity> chHuopans = this.chHuopanService.getListByCriteriaQuery(cq,false);
-		modelMap.put(NormalExcelConstants.FILE_NAME,"货盘");
-		modelMap.put(NormalExcelConstants.CLASS,ChHuopanEntity.class);
-		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("货盘列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+		CriteriaQuery cq = new CriteriaQuery(ChClientRelateEntity.class, dataGrid);
+		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, chClientRelate, request.getParameterMap());
+		List<ChClientRelateEntity> chClientRelates = this.chClientRelateService.getListByCriteriaQuery(cq,false);
+		modelMap.put(NormalExcelConstants.FILE_NAME,"客户关系");
+		modelMap.put(NormalExcelConstants.CLASS,ChClientRelateEntity.class);
+		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("客户关系列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
 			"导出信息"));
-		modelMap.put(NormalExcelConstants.DATA_LIST,chHuopans);
+		modelMap.put(NormalExcelConstants.DATA_LIST,chClientRelates);
 		return NormalExcelConstants.JEECG_EXCEL_VIEW;
 	}
 	/**
@@ -282,11 +271,11 @@ public class ChHuopanController extends BaseController {
 	 * @param response
 	 */
 	@RequestMapping(params = "exportXlsByT")
-	public String exportXlsByT(ChHuopanEntity chHuopan,HttpServletRequest request,HttpServletResponse response
+	public String exportXlsByT(ChClientRelateEntity chClientRelate,HttpServletRequest request,HttpServletResponse response
 			, DataGrid dataGrid,ModelMap modelMap) {
-    	modelMap.put(NormalExcelConstants.FILE_NAME,"货盘");
-    	modelMap.put(NormalExcelConstants.CLASS,ChHuopanEntity.class);
-    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("货盘列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+    	modelMap.put(NormalExcelConstants.FILE_NAME,"客户关系");
+    	modelMap.put(NormalExcelConstants.CLASS,ChClientRelateEntity.class);
+    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("客户关系列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
     	"导出信息"));
     	modelMap.put(NormalExcelConstants.DATA_LIST,new ArrayList());
     	return NormalExcelConstants.JEECG_EXCEL_VIEW;
@@ -307,9 +296,9 @@ public class ChHuopanController extends BaseController {
 			params.setHeadRows(1);
 			params.setNeedSave(true);
 			try {
-				List<ChHuopanEntity> listChHuopanEntitys = ExcelImportUtil.importExcel(file.getInputStream(),ChHuopanEntity.class,params);
-				for (ChHuopanEntity chHuopan : listChHuopanEntitys) {
-					chHuopanService.save(chHuopan);
+				List<ChClientRelateEntity> listChClientRelateEntitys = ExcelImportUtil.importExcel(file.getInputStream(),ChClientRelateEntity.class,params);
+				for (ChClientRelateEntity chClientRelate : listChClientRelateEntitys) {
+					chClientRelateService.save(chClientRelate);
 				}
 				j.setMsg("文件导入成功！");
 			} catch (Exception e) {

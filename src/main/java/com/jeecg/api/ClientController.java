@@ -132,7 +132,7 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "更新我的资料", httpMethod = "GET",produces="application/json")
+    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "updateInfo",method = RequestMethod.GET)
     @ResponseBody
     public RespResult updateInfo(@RequestBody ChClientEntity client){
@@ -141,11 +141,30 @@ public class ClientController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
         try {
-            oclient.setClientHeadimg(client.getClientHeadimg());
-            oclient.setClientName(client.getClientName());
-            oclient.setClientSex(client.getClientSex());
-            oclient.setClientOpenid(client.getClientOpenid());
-            oclient.setClientGzwx(client.getClientGzwx());
+            if(client.getClientHeadimg()!=null){
+                oclient.setClientHeadimg(client.getClientHeadimg());
+            }
+            if(client.getClientName()!=null){
+                oclient.setClientName(client.getClientName());
+            }
+            if(client.getClientSex()!=null){
+                oclient.setClientSex(client.getClientSex());
+            }
+            if(client.getClientOpenid()!=null){
+                oclient.setClientOpenid(client.getClientOpenid());
+            }
+            if(client.getClientGzwx()!=null){
+                oclient.setClientGzwx(client.getClientGzwx());
+            }
+            if(client.getClientMobile()!=null){
+                oclient.setClientMobile(client.getClientMobile());
+            }
+            if(client.getClientRealname()!=null){
+                oclient.setClientRealname(client.getClientRealname());
+            }
+            if(client.getClientCreditid()!=null){
+                oclient.setClientCreditid(client.getClientCreditid());
+            }
             chClientService.updateEntitie(oclient);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.jeecg.client.entity;
+package com.jeecg.relate.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,16 +20,16 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 
 /**   
  * @Title: Entity
- * @Description: 用户表
+ * @Description: 客户关系
  * @author onlineGenerator
- * @date 2018-08-10 19:04:48
+ * @date 2018-08-24 19:37:03
  * @version V1.0   
  *
  */
 @Entity
-@Table(name = "ch_client", schema = "")
+@Table(name = "ch_client_relate", schema = "")
 @SuppressWarnings("serial")
-public class ChClientEntity implements java.io.Serializable {
+public class ChClientRelateEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
 	/**创建人名称*/
@@ -50,40 +50,15 @@ public class ChClientEntity implements java.io.Serializable {
 	private java.lang.String sysCompanyCode;
 	/**流程状态*/
 	private java.lang.String bpmStatus;
-	/**姓名*/
-	@Excel(name="姓名",width=15)
-	private java.lang.String clientName;
-	/**性别*/
-	@Excel(name="性别",width=15)
-	private java.lang.String clientSex;
-	/**手机号码*/
-	@Excel(name="手机号码",width=15)
-	private java.lang.String clientMobile;
-	/**微信openID*/
-	private java.lang.String clientOpenid;
-	/**公众号*/
-	private java.lang.String clientGzwx;
-	/**头像*/
-	@Excel(name="头像",width=15)
-	private java.lang.String clientHeadimg;
-	/**真实姓名*/
-	@Excel(name="真实姓名",width=15)
-	private java.lang.String clientRealname;
-	/**身份证号*/
-	@Excel(name="身份证号",width=15)
-	private java.lang.String clientCreditid;
-	/**是否VIP*/
-	@Excel(name="是否VIP",width=15)
-	private java.lang.String clientVip;
-	/**VIP截止时间*/
-	@Excel(name="VIP截止时间",width=15,format = "yyyy-MM-dd")
-	private java.util.Date clientVipend;
-	/**密码*/
-	@Excel(name="密码",width=15)
-	private java.lang.String clientPwd;
-	/**客户类型*/
-	@Excel(name="客户类型",width=15)
-	private java.lang.String clientType;
+	/**客户id*/
+	@Excel(name="客户id",width=15)
+	private java.lang.String clientId;
+	/**关系客户id*/
+	@Excel(name="关系客户id",width=15)
+	private java.lang.String relateId;
+	/**关系类型*/
+	@Excel(name="关系类型",width=15)
+	private java.lang.String type;
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -260,198 +235,53 @@ public class ChClientEntity implements java.io.Serializable {
 	}
 	/**
 	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  姓名
+	 *@return: java.lang.String  客户id
 	 */
 
-	@Column(name ="CLIENT_NAME",nullable=false,length=32)
-	public java.lang.String getClientName(){
-		return this.clientName;
+	@Column(name ="CLIENT_ID",nullable=false,length=32)
+	public java.lang.String getClientId(){
+		return this.clientId;
 	}
 
 	/**
 	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  姓名
+	 *@param: java.lang.String  客户id
 	 */
-	public void setClientName(java.lang.String clientName){
-		this.clientName = clientName;
+	public void setClientId(java.lang.String clientId){
+		this.clientId = clientId;
 	}
 	/**
 	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  性别
+	 *@return: java.lang.String  关系客户id
 	 */
 
-	@Column(name ="CLIENT_SEX",nullable=false,length=32)
-	public java.lang.String getClientSex(){
-		return this.clientSex;
+	@Column(name ="RELATE_ID",nullable=false,length=32)
+	public java.lang.String getRelateId(){
+		return this.relateId;
 	}
 
 	/**
 	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  性别
+	 *@param: java.lang.String  关系客户id
 	 */
-	public void setClientSex(java.lang.String clientSex){
-		this.clientSex = clientSex;
+	public void setRelateId(java.lang.String relateId){
+		this.relateId = relateId;
 	}
 	/**
 	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  手机号码
+	 *@return: java.lang.String  关系类型
 	 */
 
-	@Column(name ="CLIENT_MOBILE",nullable=false,length=32)
-	public java.lang.String getClientMobile(){
-		return this.clientMobile;
+	@Column(name ="TYPE",nullable=false,length=32)
+	public java.lang.String getType(){
+		return this.type;
 	}
 
 	/**
 	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  手机号码
+	 *@param: java.lang.String  关系类型
 	 */
-	public void setClientMobile(java.lang.String clientMobile){
-		this.clientMobile = clientMobile;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  微信openID
-	 */
-
-	@Column(name ="CLIENT_OPENID",nullable=true,length=255)
-	public java.lang.String getClientOpenid(){
-		return this.clientOpenid;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  微信openID
-	 */
-	public void setClientOpenid(java.lang.String clientOpenid){
-		this.clientOpenid = clientOpenid;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  公众号
-	 */
-
-	@Column(name ="CLIENT_GZWX",nullable=true,length=32)
-	public java.lang.String getClientGzwx(){
-		return this.clientGzwx;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  公众号
-	 */
-	public void setClientGzwx(java.lang.String clientGzwx){
-		this.clientGzwx = clientGzwx;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  头像
-	 */
-
-	@Column(name ="CLIENT_HEADIMG",nullable=true,length=255)
-	public java.lang.String getClientHeadimg(){
-		return this.clientHeadimg;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  头像
-	 */
-	public void setClientHeadimg(java.lang.String clientHeadimg){
-		this.clientHeadimg = clientHeadimg;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  真实姓名
-	 */
-
-	@Column(name ="CLIENT_REALNAME",nullable=true,length=32)
-	public java.lang.String getClientRealname(){
-		return this.clientRealname;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  真实姓名
-	 */
-	public void setClientRealname(java.lang.String clientRealname){
-		this.clientRealname = clientRealname;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  身份证号
-	 */
-
-	@Column(name ="CLIENT_CREDITID",nullable=true,length=32)
-	public java.lang.String getClientCreditid(){
-		return this.clientCreditid;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  身份证号
-	 */
-	public void setClientCreditid(java.lang.String clientCreditid){
-		this.clientCreditid = clientCreditid;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  是否VIP
-	 */
-
-	@Column(name ="CLIENT_VIP",nullable=true,length=32)
-	public java.lang.String getClientVip(){
-		return this.clientVip;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  是否VIP
-	 */
-	public void setClientVip(java.lang.String clientVip){
-		this.clientVip = clientVip;
-	}
-	/**
-	 *方法: 取得java.util.Date
-	 *@return: java.util.Date  VIP截止时间
-	 */
-
-	@Column(name ="CLIENT_VIPEND",nullable=true,length=32)
-	public java.util.Date getClientVipend(){
-		return this.clientVipend;
-	}
-
-	/**
-	 *方法: 设置java.util.Date
-	 *@param: java.util.Date  VIP截止时间
-	 */
-	public void setClientVipend(java.util.Date clientVipend){
-		this.clientVipend = clientVipend;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  密码
-	 */
-
-	@Column(name ="CLIENT_PWD",nullable=true,length=32)
-	public java.lang.String getClientPwd(){
-		return this.clientPwd;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  密码
-	 */
-	public void setClientPwd(java.lang.String clientPwd){
-		this.clientPwd = clientPwd;
-	}
-
-	@Column(name ="CLIENT_TYPE",nullable=true,length=32)
-	public String getClientType() {
-		return clientType;
-	}
-
-	public void setClientType(String clientType) {
-		this.clientType = clientType;
+	public void setType(java.lang.String type){
+		this.type = type;
 	}
 }

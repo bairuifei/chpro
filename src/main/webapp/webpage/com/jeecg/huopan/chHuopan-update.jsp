@@ -20,7 +20,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanBegin" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanBegin}" hasLabel="false"  title="装货港" ></t:dictSelect>     
+									<t:dictSelect field="huopanBegin" type="list"  dictTable="ch_position" dictField="id"  dictText="position_name" defaultVal="${chHuopanPage.huopanBegin}" hasLabel="false"  title="装货港" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">装货港</label>
 						</td>
@@ -42,7 +42,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanEnd" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanEnd}" hasLabel="false"  title="卸货港" ></t:dictSelect>     
+									<t:dictSelect field="huopanEnd" type="list"  dictTable="ch_position" dictField="id"  dictText="position_name" defaultVal="${chHuopanPage.huopanEnd}" hasLabel="false"  title="卸货港" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">卸货港</label>
 						</td>
@@ -118,9 +118,11 @@
 							</label>
 						</td>
 						<td class="value">
-							<input id="huopanShipPosition" name="huopanShipPosition" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"  value='${chHuopanPage.huopanShipPosition}'/>
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">空船范围</label>
+							<input id="huopanShipPosition" name="huopanShipPosition" type="hidden" value="${chHuopanPage.huopanShipPosition}"/>
+							<input name="chooseText" class="inputxt" value="${chHuopanPage.huopanShipPositionStr}" id="chooseText" readonly="readonly" datatype="*"/>
+							<t:choose hiddenName="huopanShipPosition" inputTextname="chooseText" hiddenid="id"
+									  textname="positionName" url="chPositionController.do?choose" name="chPositionList"
+									  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 						</td>
 					</tr>
 					<tr>
@@ -162,7 +164,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanShipFengcang" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanShipFengcang}" hasLabel="false"  title="封舱" ></t:dictSelect>     
+									<t:dictSelect field="huopanShipFengcang" type="list"  typeGroupCode="fengcang"   defaultVal="${chHuopanPage.huopanShipFengcang}" hasLabel="false"  title="封舱" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">封舱</label>
 						</td>
@@ -174,7 +176,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanShipShuichi" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanShipShuichi}" hasLabel="false"  title="水尺" ></t:dictSelect>     
+									<t:dictSelect field="huopanShipShuichi" type="list"  typeGroupCode="shuichi"   defaultVal="${chHuopanPage.huopanShipShuichi}" hasLabel="false"  title="水尺" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">水尺</label>
 						</td>
@@ -184,7 +186,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanShipDriveLocation" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanShipDriveLocation}" hasLabel="false"  title="驾驶舱位置" ></t:dictSelect>     
+									<t:dictSelect field="huopanShipDriveLocation" type="list"  typeGroupCode="jiashicang"   defaultVal="${chHuopanPage.huopanShipDriveLocation}" hasLabel="false"  title="驾驶舱位置" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">驾驶舱位置</label>
 						</td>
@@ -196,7 +198,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanShipChuankou" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanShipChuankou}" hasLabel="false"  title="船口结构" ></t:dictSelect>     
+									<t:dictSelect field="huopanShipChuankou" type="list"  typeGroupCode="cangkou"   defaultVal="${chHuopanPage.huopanShipChuankou}" hasLabel="false"  title="船口结构" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">船口结构</label>
 						</td>
@@ -206,7 +208,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect field="huopanShipDakong" type="list"  typeGroupCode=""   defaultVal="${chHuopanPage.huopanShipDakong}" hasLabel="false"  title="打孔" ></t:dictSelect>     
+									<t:dictSelect field="huopanShipDakong" type="list"  typeGroupCode="dakong"   defaultVal="${chHuopanPage.huopanShipDakong}" hasLabel="false"  title="打孔" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">打孔</label>
 						</td>
