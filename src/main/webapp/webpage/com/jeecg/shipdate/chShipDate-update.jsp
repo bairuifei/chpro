@@ -22,7 +22,11 @@
 							</label>
 						</td>
 						<td class="value">
-						    <input id="shipName" name="shipName" type="text" maxlength="200" style="width: 150px" class="inputxt"  ignore="ignore"  value='${chShipDatePage.shipName}'/>
+							<input id="shipId" name="shipId" type="hidden" value="${chShipDatePage.shipId}"/>
+							<input name="shipName" class="inputxt" id="shipName" value='${chShipDatePage.shipName}' readonly="readonly" datatype="*"/>
+							<t:choose hiddenName="shipId" inputTextname="shipName" hiddenid="id"
+									  textname="shipName" url="chShipController.do?choose" name="chShipList"
+									  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">船名</label>
 						</td>
@@ -88,7 +92,7 @@
 							<input id="shipFromPort" name="shipFromPort" type="hidden" value="${chShipDatePage.shipFromPort}"/>
 							<input name="chooseText" class="inputxt" value="${chShipDatePage.shipFromPortStr}" id="chooseText" readonly="readonly" datatype="*"/>
 							<t:choose hiddenName="shipFromPort" inputTextname="chooseText" hiddenid="id"
-									  textname="positionName" url="chPositionController.do?choose" name="chPositionList"
+									  textname="positionName" url="chPositionController.do?chooseSingle" name="chPositionList"
 									  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
 						</td>
 					</tr>

@@ -3,7 +3,7 @@
 <t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
   <div region="center" style="padding:0px;border:0px">
-  <t:datagrid name="chPositionList" checkbox="true" pagination="true" fitColumns="true" title="地点" sortName="createDate" actionUrl="chPositionController.do?datagrid" idField="id" fit="true" queryMode="group" onLoadSuccess="initCheck">
+  <t:datagrid name="chPositionList" checkbox="false" pagination="true" fitColumns="true" title="地点" sortName="createDate" actionUrl="chPositionController.do?datagrid" idField="id" fit="true" queryMode="group" onLoadSuccess="initCheck">
    <t:dgCol title="主键"  field="id"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="名称"  field="positionName"  query="true"  queryMode="single"  width="120"></t:dgCol>
   </t:datagrid>
