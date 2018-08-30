@@ -1,5 +1,7 @@
 package com.jeecg.shipdate.controller;
 import com.jeecg.position.entity.ChPositionEntity;
+import com.jeecg.ship.entity.ChShipEntity;
+import com.jeecg.ship.service.ChShipServiceI;
 import com.jeecg.shipdate.entity.ChShipDateEntity;
 import com.jeecg.shipdate.service.ChShipDateServiceI;
 import java.util.ArrayList;
@@ -68,6 +70,8 @@ public class ChShipDateController extends BaseController {
 
 	@Autowired
 	private ChShipDateServiceI chShipDateService;
+	@Autowired
+	private ChShipServiceI chShipServiceI;
 	@Autowired
 	private SystemService systemService;
 	@Autowired
@@ -206,6 +210,8 @@ public class ChShipDateController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		message = "船期添加成功";
 		try{
+			ChShipEntity ship = chShipServiceI.get(ChShipEntity.class,chShipDate.getShipId());
+			chShipDate.setShipClientId(ship.getShipClientId());
 			chShipDateService.save(chShipDate);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
@@ -233,6 +239,8 @@ public class ChShipDateController extends BaseController {
 		ChShipDateEntity t = chShipDateService.get(ChShipDateEntity.class, chShipDate.getId());
 		try {
 			MyBeanUtils.copyBeanNotNull2Bean(chShipDate, t);
+			ChShipEntity ship = chShipServiceI.get(ChShipEntity.class,t.getShipId());
+			t.setShipClientId(ship.getShipClientId());
 			chShipDateService.saveOrUpdate(t);
 			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 		} catch (Exception e) {

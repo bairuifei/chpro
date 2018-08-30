@@ -16,6 +16,22 @@
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
+							用户:
+						</label>
+					</td>
+					<td class="value" colspan="3">
+						<input id="shipClientId" name="shipClientId" type="hidden" value=""/>
+						<input name="shipClientName" class="inputxt" value="" id="shipClientName" readonly="readonly" datatype="*"/>
+						<t:choose hiddenName="shipClientId" inputTextname="shipClientName" hiddenid="id"
+								  textname="clientName" url="chClientController.do?choose" name="chClientList"
+								  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">用户</label>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
 							船名:
 						</label>
 					</td>
@@ -180,14 +196,39 @@
 						</td>
 					<td align="right">
 						<label class="Validform_label">
-							&nbsp;
+							认证图片:
 						</label>
 					</td>
 					<td class="value">
-						&nbsp;
+						<div class="form jeecgDetail">
+							<t:webUploader name="shipAuditImg" displayTxt="false" auto="true" buttonText="选择图片" buttonStyle="btn-blue btn-S" type="image" fileNumLimit="1"></t:webUploader>
+						</div>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">认证图片</label>
 						</td>
 					</tr>
-
+					<tr>
+						<td align="right">
+							<label class="Validform_label">
+								经度:
+							</label>
+						</td>
+						<td class="value">
+							<input id="shipLong" name="shipLong" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="*"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">经度</label>
+						</td>
+						<td align="right">
+							<label class="Validform_label">
+								纬度:
+							</label>
+						</td>
+						<td class="value">
+							<input id="shipLat" name="shipLat" type="text" maxlength="32" style="width: 150px" class="inputxt"  datatype="*"  ignore="ignore" />
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">纬度</label>
+						</td>
+					</tr>
 
 				<tr>
 					<td align="right">

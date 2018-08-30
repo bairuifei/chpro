@@ -77,7 +77,9 @@ public class ChShipDateEntity implements java.io.Serializable {
 	@Excel(name="备用装货港",width=15)
 	private java.lang.String shipStayPorts;
 	private java.lang.String shipStayPortsStr;
-	
+	/**用户ID*/
+	private java.lang.String shipClientId;
+
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  主键
@@ -420,6 +422,15 @@ public class ChShipDateEntity implements java.io.Serializable {
 	 */
 	public void setShipStayPorts(java.lang.String shipStayPorts){
 		this.shipStayPorts = shipStayPorts;
+	}
+
+	@Column(name ="ship_client_id",nullable=true,length=36)
+	public String getShipClientId() {
+		return shipClientId;
+	}
+
+	public void setShipClientId(String shipClientId) {
+		this.shipClientId = shipClientId;
 	}
 
 	@Transient

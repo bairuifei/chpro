@@ -101,7 +101,16 @@ public class ChShipEntity implements java.io.Serializable {
 	/**审核状态*/
 	@Excel(name="审核状态",width=15)
 	private java.lang.String shipAudit;
-	
+	/**用户ID*/
+	private java.lang.String shipClientId;
+	/**用户名称*/
+	private java.lang.String shipClientName;
+	/**认证图片*/
+	private java.lang.String shipAuditImg;
+	/**经度*/
+	private java.lang.String shipLong;
+	/**纬度*/
+	private java.lang.String shipLat;
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  主键
@@ -563,5 +572,49 @@ public class ChShipEntity implements java.io.Serializable {
 	 */
 	public void setShipAudit(java.lang.String shipAudit){
 		this.shipAudit = shipAudit;
+	}
+
+	@Column(name ="ship_client_id",nullable=true,length=36)
+	public String getShipClientId() {
+		return shipClientId;
+	}
+
+	public void setShipClientId(String shipClientId) {
+		this.shipClientId = shipClientId;
+	}
+	@Column(name ="ship_client_name",nullable=true,length=36)
+	public String getShipClientName() {
+		return shipClientName;
+	}
+
+	public void setShipClientName(String shipClientName) {
+		this.shipClientName = shipClientName;
+	}
+
+	@Column(name ="ship_audit_img",nullable=true,length=500)
+	public String getShipAuditImg() {
+		return shipAuditImg;
+	}
+
+	public void setShipAuditImg(String shipAuditImg) {
+		this.shipAuditImg = shipAuditImg;
+	}
+
+	@Column(name ="ship_long",nullable=true,length=32)
+	public String getShipLong() {
+		return shipLong;
+	}
+
+	public void setShipLong(String shipLong) {
+		this.shipLong = shipLong;
+	}
+
+	@Column(name ="ship_lat",nullable=true,length=32)
+	public String getShipLat() {
+		return shipLat;
+	}
+
+	public void setShipLat(String shipLat) {
+		this.shipLat = shipLat;
 	}
 }

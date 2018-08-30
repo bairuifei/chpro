@@ -15,6 +15,7 @@
    <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="流程状态"  field="bpmStatus" hidden="true" queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
    <t:dgCol title="船名"  field="shipName"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="用户"  field="shipClientName"  query="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="船舶载重吨"  field="shipZaizhong"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="建造日期"  field="shipBuildtime"  formatter="yyyy-MM-dd"  query="true"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="满载吃水"  field="shipWater"  queryMode="single"  width="120"></t:dgCol>
@@ -30,6 +31,9 @@
    <t:dgCol title="打孔"  field="shipDakong"  query="true" dictionary="dakong" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="水尺"  field="shipShuichi"  query="true" dictionary="shuichi"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="备注"  field="shipNote"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="经度"  field="shipLong"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="纬度"  field="shipLat"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="认证图片"  field="shipAuditImg"  queryMode="single" image="true" imageSize="50,50"  width="120"></t:dgCol>
    <t:dgCol title="审核状态"  field="shipAudit"  query="true" dictionary="audit" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chShipController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>

@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping("/shipdate")
-@Api(value = "船期模块", description = "船期模块", tags = "shipAPI")
+@Api(value = "船期模块", description = "船期模块", tags = "shipDateAPI")
 public class ShipDateController {
     private static final Logger logger = LoggerFactory.getLogger(ShipDateController.class);
 
@@ -32,6 +33,19 @@ public class ShipDateController {
         try {
             chShipDateServiceI.save(shipdate);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "获取已发布船期列表", httpMethod = "GET",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ResponseBody
+    public RespResult list(@RequestParam String clientId){
+        try {
+            List<ChShipDateEntity> shipDates = chShipDateServiceI.findByProperty(ChShipDateEntity.class,"shipClientId",clientId);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipDates);
         } catch (Exception e) {
             e.printStackTrace();
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
