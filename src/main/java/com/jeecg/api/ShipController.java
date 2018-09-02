@@ -57,6 +57,7 @@ public class ShipController {
     @ResponseBody
     public RespResult save(@RequestBody ChShipEntity ship){
         try {
+            ship.setShipAudit("auditing");
             chShipServiceI.save(ship);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {
@@ -90,4 +91,6 @@ public class ShipController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
+
+
 }

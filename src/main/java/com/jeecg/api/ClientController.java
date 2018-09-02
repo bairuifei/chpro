@@ -172,4 +172,18 @@ public class ClientController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
+
+    @ApiOperation(value = "设置新船期通知", httpMethod = "GET")
+    @RequestMapping(value = "newShipDate",method = RequestMethod.GET)
+    @ResponseBody
+    public RespResult newShipDate(@RequestParam String clientId, @RequestParam String yOrN){
+        ChClientEntity client = chClientService.get(ChClientEntity.class,clientId);
+        if (client!=null){
+            client.setNewShipDate(yOrN);
+            chClientService.updateEntitie(client);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
 }

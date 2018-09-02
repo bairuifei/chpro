@@ -393,6 +393,33 @@
             </td>
             <td align="right">
                 <label class="Validform_label">
+                    用户:
+                </label>
+            </td>
+            <td class="value">
+                <input id="huopanClientId" name="huopanClientId" type="hidden" value=""/>
+                <input name="huopanClientName" class="inputxt" value="" id="huopanClientName" readonly="readonly" datatype="*"/>
+                <t:choose hiddenName="huopanClientId" inputTextname="huopanClientName" hiddenid="id"
+                          textname="clientName" url="chClientController.do?choose" name="chClientList"
+                          icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
+                <span class="Validform_checktip"></span>
+                <label class="Validform_label" style="display: none;">用户</label>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <label class="Validform_label">
+                    货盘类型:
+                </label>
+            </td>
+            <td class="value">
+                <t:dictSelect field="huopantype" type="list" typeGroupCode="huopantype"
+                              defaultVal="${chHuopanPage.huopantype}" hasLabel="false" title="货盘类型"></t:dictSelect>
+                <span class="Validform_checktip"></span>
+                <label class="Validform_label" style="display: none;">货盘类型</label>
+            </td>
+            <td align="right">
+                <label class="Validform_label">
                 </label>
             </td>
             <td class="value">

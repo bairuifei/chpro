@@ -84,6 +84,9 @@ public class ChClientEntity implements java.io.Serializable {
 	/**客户类型*/
 	@Excel(name="客户类型",width=15)
 	private java.lang.String clientType;
+	/**新船期通知*/
+	private java.lang.String newShipDate;
+
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -453,5 +456,14 @@ public class ChClientEntity implements java.io.Serializable {
 
 	public void setClientType(String clientType) {
 		this.clientType = clientType;
+	}
+
+	@Column(name ="new_ship_date",nullable=true,length=32)
+	public String getNewShipDate() {
+		return newShipDate;
+	}
+
+	public void setNewShipDate(String newShipDate) {
+		this.newShipDate = newShipDate;
 	}
 }

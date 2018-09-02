@@ -141,6 +141,12 @@ public class ChHuopanEntity implements java.io.Serializable {
 	private java.lang.String huopanFeePaytype;
 	/**审核状态*/
 	private java.lang.String huopanAudit;
+	/**用户ID*/
+	private java.lang.String huopanClientId;
+	/**用户名称*/
+	private java.lang.String huopanClientName;
+	/**货盘类型*/
+	private java.lang.String huopantype;
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -867,5 +873,32 @@ public class ChHuopanEntity implements java.io.Serializable {
 
 	public void setHuopanShipPositionStr(String huopanShipPositionStr) {
 		this.huopanShipPositionStr = huopanShipPositionStr;
+	}
+
+	@Column(name ="huopan_client_id",nullable=true,length=36)
+	public String getHuopanClientId() {
+		return huopanClientId;
+	}
+
+	public void setHuopanClientId(String huopanClientId) {
+		this.huopanClientId = huopanClientId;
+	}
+
+	@Column(name ="huopan_client_name",nullable=true,length=36)
+	public String getHuopanClientName() {
+		return huopanClientName;
+	}
+
+	public void setHuopanClientName(String huopanClientName) {
+		this.huopanClientName = huopanClientName;
+	}
+
+	@Column(name ="huopan_type",nullable=true,length=36)
+	public String getHuopantype() {
+		return huopantype;
+	}
+
+	public void setHuopantype(String huopantype) {
+		this.huopantype = huopantype;
 	}
 }

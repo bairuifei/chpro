@@ -170,6 +170,9 @@ public class ChHuopanController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		message = "货盘添加成功";
 		try{
+			if (StringUtil.isEmpty(chHuopan.getHuopantype())){
+				chHuopan.setHuopantype("nooffice");
+			}
 			chHuopan.setHuopanAudit("auditing");
 			chHuopanService.save(chHuopan);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);

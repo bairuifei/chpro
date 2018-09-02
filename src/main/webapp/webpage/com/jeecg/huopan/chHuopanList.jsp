@@ -46,6 +46,7 @@
    <t:dgCol title="结算方式"  field="huopanFeeJstype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="付款方式"  field="huopanFeePaytype"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="审核状态"  field="huopanAudit"  query="true" dictionary="audit"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="货盘类型"  field="huopantype"  query="true" dictionary="huopantype"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chHuopanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
    <t:dgToolBar title="录入" icon="icon-add" url="chHuopanController.do?goAdd" funname="add"></t:dgToolBar>
