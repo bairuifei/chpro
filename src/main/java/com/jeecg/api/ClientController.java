@@ -42,7 +42,7 @@ public class ClientController {
 
     @ApiOperation(value = "获取验证码", httpMethod = "GET")
     @RequestMapping(value = "yzCode",method = RequestMethod.GET)
-    public void yzCode(String tel, HttpServletResponse response) throws Exception {
+    public void yzCode(@RequestParam String tel, HttpServletResponse response) throws Exception {
         // 设置页面不缓存
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
