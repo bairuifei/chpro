@@ -26,8 +26,8 @@ public class ShipDateController {
     @Autowired
     private ChShipDateServiceI chShipDateServiceI;
 
-    @ApiOperation(value = "发布船期", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "save",method = RequestMethod.GET)
+    @ApiOperation(value = "发布船期", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "save",method = RequestMethod.POST)
     @ResponseBody
     public RespResult save(@RequestBody ChShipDateEntity shipdate){
         try {
@@ -39,8 +39,8 @@ public class ShipDateController {
         }
     }
 
-    @ApiOperation(value = "获取已发布船期列表", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ApiOperation(value = "获取已发布船期列表", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
     public RespResult list(@RequestParam String clientId){
         try {

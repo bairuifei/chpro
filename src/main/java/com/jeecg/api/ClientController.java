@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +38,12 @@ public class ClientController {
     /**
      * 验证码集合
      */
-    private static final Map<String,String> yzCodes = new HashMap<>();
+    private static final List<String> yzCodes = new ArrayList<>();
     private static final long telCodeOverTime = 60l;
 
-    @ApiOperation(value = "获取验证码", httpMethod = "GET")
-    @RequestMapping(value = "yzCode",method = RequestMethod.GET)
-    public void yzCode(@RequestParam String tel, HttpServletResponse response) throws Exception {
+    @ApiOperation(value = "获取验证码", httpMethod = "POST")
+    @RequestMapping(value = "yzCode",method = RequestMethod.POST)
+    public void yzCode(HttpServletResponse response) throws Exception {
         // 设置页面不缓存
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
@@ -51,36 +52,61 @@ public class ClientController {
 
         //获取随机码和随机码图片
         Map map = YzCodeUtils.buildYzCode();
-        yzCodes.put(tel,((String)map.get("code")).toUpperCase());
-        logger.info("yzCodes============>\n"+ JSONHelper.map2json(yzCodes));
+        yzCodes.add(((String)map.get("code")).toUpperCase());
+        logger.info("yzCodes============>\n"+ JSONHelper.collection2json(yzCodes));
         // 输出图象到页面
         ImageIO.write((BufferedImage)map.get("image"), "JPEG", response.getOutputStream());
     }
 
-    @ApiOperation(value = "发送短信验证码", httpMethod = "GET")
-    @RequestMapping(value = "telCode",method = RequestMethod.GET)
+    @ApiOperation(value = "验证验证码", httpMethod = "POST")
+    @RequestMapping(value = "judgeYzCode",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult telCode(@RequestParam String tel, @RequestParam String yzCode){
-        if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(yzCode)){
+    public RespResult judgeYzCode(@RequestParam String yzCode){
+        if (StringUtil.isEmpty(yzCode)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
-        if (yzCodes.containsKey(tel)){
-            if ((yzCodes.get(tel)).equals(yzCode.toUpperCase())){
-                // TODO: 2018/8/18/018 发送验证码
-                String telCode = new Double(Math.random()*10000).intValue()+"";
-                logger.info("发送验证码成功=========>"+telCode);
-                redisService.setSeconds(tel,telCode,telCodeOverTime);
-                return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),telCode);
-            }else {
-                return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
-            }
+        if (yzCodes.contains(yzCode.toUpperCase())){
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         }else {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
 
-    @ApiOperation(value = "验证短信验证码", httpMethod = "GET")
-    @RequestMapping(value = "yzTelCode",method = RequestMethod.GET)
+    @ApiOperation(value = "删除验证码", httpMethod = "POST")
+    @RequestMapping(value = "delYzCode",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult delYzCode(@RequestParam String yzCode){
+        if (StringUtil.isEmpty(yzCode)){
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+        if (yzCodes.contains(yzCode.toUpperCase())){
+            yzCodes.remove(yzCode.toUpperCase());
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "发送短信验证码", httpMethod = "POST")
+    @RequestMapping(value = "telCode",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult telCode(@RequestParam String tel, @RequestParam String yzCode){
+        if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(yzCode)){
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+        if (yzCodes.contains(yzCode.toUpperCase())){
+            // TODO: 2018/8/18/018 发送验证码
+            String telCode = new Double(Math.random()*10000).intValue()+"";
+            logger.info("发送验证码成功=========>"+telCode);
+            redisService.setSeconds(tel,telCode,telCodeOverTime);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),telCode);
+        }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "验证短信验证码", httpMethod = "POST")
+    @RequestMapping(value = "yzTelCode",method = RequestMethod.POST)
     @ResponseBody
     public RespResult yzTelCode(@RequestParam String tel, @RequestParam String telCode){
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(telCode)){
@@ -99,8 +125,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "登录", httpMethod = "GET")
-    @RequestMapping(value = "login",method = RequestMethod.GET)
+    @ApiOperation(value = "登录", httpMethod = "POST")
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
     public RespResult login(@RequestParam String tel, @RequestParam String pwd){
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(pwd)){
@@ -115,8 +141,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "忘记密码/更新密码", httpMethod = "GET")
-    @RequestMapping(value = "forgetPwd",method = RequestMethod.GET)
+    @ApiOperation(value = "忘记密码/更新密码", httpMethod = "POST")
+    @RequestMapping(value = "forgetPwd",method = RequestMethod.POST)
     @ResponseBody
     public RespResult forgetPwd(@RequestParam String tel, @RequestParam String pwd){
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(pwd)){
@@ -132,8 +158,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "updateInfo",method = RequestMethod.GET)
+    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "updateInfo",method = RequestMethod.POST)
     @ResponseBody
     public RespResult updateInfo(@RequestBody ChClientEntity client){
         ChClientEntity oclient= chClientService.get(ChClientEntity.class,client.getId());
@@ -173,8 +199,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "设置新船期通知", httpMethod = "GET")
-    @RequestMapping(value = "newShipDate",method = RequestMethod.GET)
+    @ApiOperation(value = "设置新船期通知", httpMethod = "POST")
+    @RequestMapping(value = "newShipDate",method = RequestMethod.POST)
     @ResponseBody
     public RespResult newShipDate(@RequestParam String clientId, @RequestParam String yOrN){
         ChClientEntity client = chClientService.get(ChClientEntity.class,clientId);

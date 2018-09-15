@@ -27,8 +27,8 @@ public class RelateController {
     @Autowired
     private ChClientRelateServiceI chClientRelateServiceI;
 
-    @ApiOperation(value = "保存客户关系", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "save",method = RequestMethod.GET)
+    @ApiOperation(value = "保存客户关系", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "save",method = RequestMethod.POST)
     @ResponseBody
     public RespResult save(@RequestBody ChClientRelateEntity relateEntity){
         try {
@@ -40,8 +40,8 @@ public class RelateController {
         }
     }
 
-    @ApiOperation(value = "客户关系列表", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ApiOperation(value = "客户关系列表", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
     public RespResult list(@RequestParam String clientId,@RequestParam String type){
         try {

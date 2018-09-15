@@ -26,8 +26,8 @@ public class ShipController {
     @Autowired
     private ChShipServiceI chShipServiceI;
 
-    @ApiOperation(value = "获取已发布船舶列表", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ApiOperation(value = "获取已发布船舶列表", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
     public RespResult list(@RequestParam String clientId){
         try {
@@ -39,8 +39,8 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "获取船舶档案信息", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "find",method = RequestMethod.GET)
+    @ApiOperation(value = "获取船舶档案信息", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "find",method = RequestMethod.POST)
     @ResponseBody
     public RespResult find(@RequestParam String shipId){
         try {
@@ -52,8 +52,8 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "添加船舶", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "save",method = RequestMethod.GET)
+    @ApiOperation(value = "添加船舶", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "save",method = RequestMethod.POST)
     @ResponseBody
     public RespResult save(@RequestBody ChShipEntity ship){
         try {
@@ -66,8 +66,8 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "更新船舶", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "update",method = RequestMethod.GET)
+    @ApiOperation(value = "更新船舶", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public RespResult update(@RequestBody ChShipEntity ship){
         try {
@@ -79,8 +79,8 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "删除船舶", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "delete",method = RequestMethod.GET)
+    @ApiOperation(value = "删除船舶", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
     public RespResult delete(@RequestParam String shipId){
         try {
