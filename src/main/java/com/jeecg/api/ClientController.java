@@ -125,6 +125,20 @@ public class ClientController {
         }
     }
 
+    @ApiOperation(value = "注册", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult register(@RequestBody ChClientEntity client){
+        try {
+            client.setNewShipDate("Y");
+            chClientService.save(client);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
     @ApiOperation(value = "登录", httpMethod = "POST")
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody

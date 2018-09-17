@@ -1,4 +1,4 @@
-package com.jeecg.position.entity;
+package com.jeecg.province.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,16 +20,16 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 
 /**   
  * @Title: Entity
- * @Description: 地点
+ * @Description: 省份
  * @author onlineGenerator
- * @date 2018-08-09 19:46:03
+ * @date 2018-09-17 21:03:06
  * @version V1.0   
  *
  */
 @Entity
-@Table(name = "ch_position", schema = "")
+@Table(name = "ch_province", schema = "")
 @SuppressWarnings("serial")
-public class ChPositionEntity implements java.io.Serializable {
+public class ChProvinceEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
 	/**创建人名称*/
@@ -50,14 +50,8 @@ public class ChPositionEntity implements java.io.Serializable {
 	private java.lang.String sysCompanyCode;
 	/**流程状态*/
 	private java.lang.String bpmStatus;
-	/**名称*/
-	@Excel(name="名称",width=15)
-	private java.lang.String positionName;
-	/**类型编码*/
-	private java.lang.String positionTypeCode;
-	/**省份ID*/
-	private java.lang.String provinceId;
 	/**省份名称*/
+	@Excel(name="省份名称",width=15)
 	private java.lang.String provinceName;
 	
 	/**
@@ -235,54 +229,19 @@ public class ChPositionEntity implements java.io.Serializable {
 	}
 	/**
 	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  名称
+	 *@return: java.lang.String  省份名称
 	 */
 
-	@Column(name ="POSITION_NAME",nullable=true,length=32)
-	public java.lang.String getPositionName(){
-		return this.positionName;
+	@Column(name ="PROVINCE_NAME",nullable=false,length=32)
+	public java.lang.String getProvinceName(){
+		return this.provinceName;
 	}
 
 	/**
 	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  名称
+	 *@param: java.lang.String  省份名称
 	 */
-	public void setPositionName(java.lang.String positionName){
-		this.positionName = positionName;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  类型编码
-	 */
-
-	@Column(name ="POSITION_TYPE_CODE",nullable=true,length=32)
-	public java.lang.String getPositionTypeCode(){
-		return this.positionTypeCode;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  类型编码
-	 */
-	public void setPositionTypeCode(java.lang.String positionTypeCode){
-		this.positionTypeCode = positionTypeCode;
-	}
-
-	@Column(name ="province_id",nullable=true,length=36)
-	public String getProvinceId() {
-		return provinceId;
-	}
-
-	public void setProvinceId(String provinceId) {
-		this.provinceId = provinceId;
-	}
-
-	@Column(name ="province_name",nullable=true,length=32)
-	public String getProvinceName() {
-		return provinceName;
-	}
-
-	public void setProvinceName(String provinceName) {
+	public void setProvinceName(java.lang.String provinceName){
 		this.provinceName = provinceName;
 	}
 }

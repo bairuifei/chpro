@@ -15,6 +15,7 @@
    <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
    <t:dgCol title="名称"  field="positionName"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="所属省份"  field="provinceId" query="true" queryMode="single"  dictionary="ch_province,id,province_name" width="120"></t:dgCol>
    <t:dgCol title="类型编码"  field="positionTypeCode"  query="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="chPositionController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>

@@ -25,7 +25,20 @@
 							<label class="Validform_label" style="display: none;">名称</label>
 						</td>
 					</tr>
-				
+					<tr>
+						<td align="right">
+							<label class="Validform_label">
+								所属省份:
+							</label>
+						</td>
+						<td class="value">
+							<input id="provinceId" name="provinceId" type="hidden" value="${chPositionPage.provinceId}"/>
+							<input name="provinceName" class="inputxt" value="${chPositionPage.provinceName}" id="provinceName" readonly="readonly" datatype="*"/>
+							<t:choose hiddenName="provinceId" inputTextname="provinceName" hiddenid="id"
+									  textname="provinceName" url="chProvinceController.do?choose" name="chProvinceList"
+									  icon="icon-search" title="选择操作标签" isclear="true" isInit="true"></t:choose>
+						</td>
+					</tr>
 			</table>
 		</t:formvalid>
  </body>
