@@ -40,8 +40,8 @@ public class RelateController {
         }
     }
 
-    @ApiOperation(value = "客户关系列表", httpMethod = "POST",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @ApiOperation(value = "客户关系列表", httpMethod = "GET",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
     public RespResult list(@RequestParam String clientId,@RequestParam String type){
         try {

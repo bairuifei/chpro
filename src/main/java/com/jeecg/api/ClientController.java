@@ -42,7 +42,7 @@ public class ClientController {
     private static final long telCodeOverTime = 60l;
 
     @ApiOperation(value = "获取验证码", httpMethod = "GET")
-    @RequestMapping(value = "yzCode",method = RequestMethod.POST)
+    @RequestMapping(value = "yzCode",method = RequestMethod.GET)
     public void yzCode(HttpServletResponse response) throws Exception {
         // 设置页面不缓存
         response.setHeader("Pragma", "No-cache");
@@ -87,8 +87,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "发送短信验证码", httpMethod = "POST")
-    @RequestMapping(value = "telCode",method = RequestMethod.POST)
+    @ApiOperation(value = "发送短信验证码", httpMethod = "GET")
+    @RequestMapping(value = "telCode",method = RequestMethod.GET)
     @ResponseBody
     public RespResult telCode(@RequestParam String tel, @RequestParam String yzCode){
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(yzCode)){
@@ -199,8 +199,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "设置新船期通知", httpMethod = "POST")
-    @RequestMapping(value = "newShipDate",method = RequestMethod.POST)
+    @ApiOperation(value = "设置新船期通知", httpMethod = "GET")
+    @RequestMapping(value = "newShipDate",method = RequestMethod.GET)
     @ResponseBody
     public RespResult newShipDate(@RequestParam String clientId, @RequestParam String yOrN){
         ChClientEntity client = chClientService.get(ChClientEntity.class,clientId);

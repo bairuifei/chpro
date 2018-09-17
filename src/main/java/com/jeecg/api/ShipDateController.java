@@ -39,8 +39,8 @@ public class ShipDateController {
         }
     }
 
-    @ApiOperation(value = "获取已发布船期列表", httpMethod = "POST",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @ApiOperation(value = "获取已发布船期列表", httpMethod = "GET",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
     public RespResult list(@RequestParam String clientId){
         try {
