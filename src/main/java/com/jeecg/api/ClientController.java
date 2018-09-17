@@ -41,7 +41,7 @@ public class ClientController {
     private static final List<String> yzCodes = new ArrayList<>();
     private static final long telCodeOverTime = 60l;
 
-    @ApiOperation(value = "获取验证码", httpMethod = "POST")
+    @ApiOperation(value = "获取验证码", httpMethod = "GET")
     @RequestMapping(value = "yzCode",method = RequestMethod.POST)
     public void yzCode(HttpServletResponse response) throws Exception {
         // 设置页面不缓存
