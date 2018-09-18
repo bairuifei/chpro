@@ -66,7 +66,7 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "更新船舶", httpMethod = "POST",produces="application/json")
+    @ApiOperation(value = "更新船舶/认证船舶/上传船舶位置", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public RespResult update(@RequestBody ChShipEntity ship){

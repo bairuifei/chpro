@@ -51,4 +51,17 @@ public class ShipDateController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
+
+    @ApiOperation(value = "删除船期", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult delete(@RequestParam String id){
+        try {
+            chShipDateServiceI.deleteEntityById(ChShipDateEntity.class,id);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
 }
