@@ -61,9 +61,21 @@ public class HuoPanController {
     @ResponseBody
     public RespResult search(@RequestBody JSONObject json){
         try {
-            String huopanBegin = json.getString("huopanBegin");
-            String huopanEnd = json.getString("huopanEnd");
-            Integer zaiZhong = json.getInt("zaiZhong");
+            String huopanBegin = null;
+            String huopanEnd = null;
+            Integer zaiZhong = null;
+            if (json.has("huopanBegin")){
+                huopanBegin = json.getString("huopanBegin");
+
+            }
+            if (json.has("huopanEnd")){
+                huopanEnd = json.getString("huopanEnd");
+
+            }
+            if (json.has("zaiZhong")){
+                zaiZhong = json.getInt("zaiZhong");
+
+            }
             StringBuffer hql = new StringBuffer("from ChHuopanEntity where 1=1");
             if (StringUtil.isNotEmpty(huopanBegin)){
                 hql.append(" and huopanBegin = ").append(huopanBegin);
