@@ -4,6 +4,7 @@ import com.jeecg.shipdate.entity.ChShipDateEntity;
 import com.jeecg.shipdate.service.ChShipDateServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +43,9 @@ public class ShipDateController {
     @ApiOperation(value = "获取已发布船期列表", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult list(@RequestParam String clientId){
+    public RespResult list(@RequestBody JSONObject json){
         try {
+            String clientId = json.getString("clientId");
             List<ChShipDateEntity> shipDates = chShipDateServiceI.findByProperty(ChShipDateEntity.class,"shipClientId",clientId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipDates);
         } catch (Exception e) {
@@ -55,8 +57,9 @@ public class ShipDateController {
     @ApiOperation(value = "删除船期", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult delete(@RequestParam String id){
+    public RespResult delete(@RequestBody JSONObject json){
         try {
+            String id = json.getString("id");
             chShipDateServiceI.deleteEntityById(ChShipDateEntity.class,id);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {

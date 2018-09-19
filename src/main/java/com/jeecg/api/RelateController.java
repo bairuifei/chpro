@@ -5,6 +5,7 @@ import com.jeecg.relate.entity.ChClientRelateEntity;
 import com.jeecg.relate.service.ChClientRelateServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,10 @@ public class RelateController {
     @ApiOperation(value = "客户关系列表", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult list(@RequestParam String clientId,@RequestParam String type){
+    public RespResult list(@RequestBody JSONObject json){
         try {
+            String clientId = json.getString("clientId");
+            String type = json.getString("type");
             List<Map<String, Object>> relateEntities = chClientRelateServiceI.findForJdbc("select client.* from ch_client client left join ch_client_relate relate on client.id = relate.relate_id where relate.client_id = ? and relate.type = ?",clientId,type);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),relateEntities);
         } catch (Exception e) {

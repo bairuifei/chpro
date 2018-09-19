@@ -4,6 +4,7 @@ import com.jeecg.ship.entity.ChShipEntity;
 import com.jeecg.ship.service.ChShipServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,9 @@ public class ShipController {
     @ApiOperation(value = "获取已发布船舶列表", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult list(@RequestParam String clientId){
+    public RespResult list(@RequestBody JSONObject json){
         try {
+            String clientId = json.getString("clientId");
             List<ChShipEntity> ships = chShipServiceI.findByProperty(ChShipEntity.class,"shipClientId",clientId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),ships);
         } catch (Exception e) {
@@ -42,8 +44,9 @@ public class ShipController {
     @ApiOperation(value = "获取船舶档案信息", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "find",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult find(@RequestParam String shipId){
+    public RespResult find(@RequestBody JSONObject json){
         try {
+            String shipId = json.getString("shipId");
             ChShipEntity ship = chShipServiceI.get(ChShipEntity.class,shipId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),ship);
         } catch (Exception e) {
@@ -82,8 +85,9 @@ public class ShipController {
     @ApiOperation(value = "删除船舶", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult delete(@RequestParam String shipId){
+    public RespResult delete(@RequestBody JSONObject json){
         try {
+            String shipId = json.getString("shipId");
             chShipServiceI.deleteEntityById(ChShipEntity.class,shipId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {

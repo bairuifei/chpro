@@ -4,6 +4,7 @@ import com.jeecg.huopan.entity.ChHuopanEntity;
 import com.jeecg.huopan.service.ChHuopanServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.jeecgframework.core.util.StringUtil;
 import org.slf4j.Logger;
@@ -29,8 +30,9 @@ public class HuoPanController {
     @ApiOperation(value = "查看历史货盘", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult list(@RequestParam String clientId){
+    public RespResult list(@RequestBody JSONObject json){
         try {
+            String clientId = json.getString("clientId");
             List<ChHuopanEntity> huopans = chHuopanServiceI.findByProperty(ChHuopanEntity.class,"huopanClientId",clientId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopans);
         } catch (Exception e) {
@@ -42,8 +44,9 @@ public class HuoPanController {
     @ApiOperation(value = "获取货盘信息", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "find",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult find(@RequestParam String huopanId){
+    public RespResult find(@RequestBody JSONObject json){
         try {
+            String huopanId = json.getString("huopanId");
             ChHuopanEntity huopan = chHuopanServiceI.get(ChHuopanEntity.class,huopanId);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopan);
         } catch (Exception e) {
@@ -56,8 +59,11 @@ public class HuoPanController {
     @ApiOperation(value = "搜索货盘模块", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "search",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult search(@RequestParam String huopanBegin,@RequestParam String huopanEnd,@RequestParam Integer zaiZhong){
+    public RespResult search(@RequestBody JSONObject json){
         try {
+            String huopanBegin = json.getString("huopanBegin");
+            String huopanEnd = json.getString("huopanEnd");
+            Integer zaiZhong = json.getInt("zaiZhong");
             StringBuffer hql = new StringBuffer("from ChHuopanEntity where 1=1");
             if (StringUtil.isNotEmpty(huopanBegin)){
                 hql.append(" and huopanBegin = ").append(huopanBegin);
@@ -90,7 +96,7 @@ public class HuoPanController {
     }
 
     @ApiOperation(value = "发布货盘", httpMethod = "POST",produces="application/json")
-    @RequestMapping(value = "save",method = RequestMethod.POST)
+    @RequestMapping(value = "save",method = RequestMethod.POST,consumes ="application/json")
     @ResponseBody
     public RespResult save(@RequestBody ChHuopanEntity huopan){
         try {
@@ -105,8 +111,9 @@ public class HuoPanController {
     @ApiOperation(value = "删除货盘", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult delete(@RequestParam String id){
+    public RespResult delete(@RequestBody JSONObject json){
         try {
+            String id = json.getString("id");
             chHuopanServiceI.deleteEntityById(ChHuopanEntity.class,id);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {
@@ -118,7 +125,7 @@ public class HuoPanController {
     @ApiOperation(value = "江湖评价", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "pingjia",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult pingjia(){
+    public RespResult pingjia(@RequestBody JSONObject json){
         try {
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),"暂未开发");
         } catch (Exception e) {
@@ -130,7 +137,7 @@ public class HuoPanController {
     @ApiOperation(value = "查看匹配的船期", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "suitShipDate",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult suitShipDate(){
+    public RespResult suitShipDate(@RequestBody JSONObject json){
         try {
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),"暂未开发");
         } catch (Exception e) {
@@ -142,7 +149,7 @@ public class HuoPanController {
     @ApiOperation(value = "继续找船", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "goonShip",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult goonShip(){
+    public RespResult goonShip(@RequestBody JSONObject json){
         try {
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),"暂未开发");
         } catch (Exception e) {

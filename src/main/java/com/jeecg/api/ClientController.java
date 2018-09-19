@@ -5,6 +5,7 @@ import com.jeecg.client.service.ChClientServiceI;
 import com.jeecg.util.YzCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.StringUtil;
@@ -19,7 +20,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +41,8 @@ public class ClientController {
     private static final List<String> yzCodes = new ArrayList<>();
     private static final long telCodeOverTime = 60l;
 
-    @ApiOperation(value = "获取验证码", httpMethod = "GET")
-    @RequestMapping(value = "yzCode",method = RequestMethod.GET)
+    @ApiOperation(value = "获取验证码", httpMethod = "GET",produces="application/json")
+    @RequestMapping(value = "yzCode",method = RequestMethod.GET,produces="application/json;charset=UTF-8")
     public void yzCode(HttpServletResponse response) throws Exception {
         // 设置页面不缓存
         response.setHeader("Pragma", "No-cache");
@@ -58,10 +58,11 @@ public class ClientController {
         ImageIO.write((BufferedImage)map.get("image"), "JPEG", response.getOutputStream());
     }
 
-    @ApiOperation(value = "验证验证码", httpMethod = "POST")
+    @ApiOperation(value = "验证验证码", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "judgeYzCode",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult judgeYzCode(@RequestParam String yzCode){
+    public RespResult judgeYzCode(@RequestBody JSONObject json){
+        String yzCode = json.getString("yzCode");
         if (StringUtil.isEmpty(yzCode)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -72,10 +73,11 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "删除验证码", httpMethod = "POST")
+    @ApiOperation(value = "删除验证码", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "delYzCode",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult delYzCode(@RequestParam String yzCode){
+    public RespResult delYzCode(@RequestBody JSONObject json){
+        String yzCode = json.getString("yzCode");
         if (StringUtil.isEmpty(yzCode)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -87,10 +89,12 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "发送短信验证码", httpMethod = "GET")
+    @ApiOperation(value = "发送短信验证码", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "telCode",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult telCode(@RequestParam String tel, @RequestParam String yzCode){
+    public RespResult telCode(@RequestBody JSONObject json){
+        String tel = json.getString("tel");
+        String yzCode = json.getString("yzCode");
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(yzCode)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -105,10 +109,12 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "验证短信验证码", httpMethod = "POST")
+    @ApiOperation(value = "验证短信验证码", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "yzTelCode",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult yzTelCode(@RequestParam String tel, @RequestParam String telCode){
+    public RespResult yzTelCode(@RequestBody JSONObject json){
+        String tel = json.getString("tel");
+        String telCode = json.getString("telCode");
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(telCode)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -125,8 +131,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "注册", httpMethod = "POST",produces="application/json")
-    @RequestMapping(value = "register",method = RequestMethod.POST)
+    @ApiOperation(value = "注册", httpMethod = "POST")
+    @RequestMapping(value = "register",method = RequestMethod.POST,consumes = "application/json")
     @ResponseBody
     public RespResult register(@RequestBody ChClientEntity client){
         try {
@@ -139,10 +145,12 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "登录", httpMethod = "POST")
+    @ApiOperation(value = "登录", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult login(@RequestParam String tel, @RequestParam String pwd){
+    public RespResult login(@RequestBody JSONObject json){
+        String tel = json.getString("tel");
+        String pwd = json.getString("pwd");
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(pwd)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -155,10 +163,12 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "忘记密码/更新密码", httpMethod = "POST")
+    @ApiOperation(value = "忘记密码/更新密码", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "forgetPwd",method = RequestMethod.POST)
     @ResponseBody
-    public RespResult forgetPwd(@RequestParam String tel, @RequestParam String pwd){
+    public RespResult forgetPwd(@RequestBody JSONObject json){
+        String tel = json.getString("tel");
+        String pwd = json.getString("pwd");
         if (StringUtil.isEmpty(tel) || StringUtil.isEmpty(pwd)){
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -172,8 +182,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "POST",produces="application/json")
-    @RequestMapping(value = "updateInfo",method = RequestMethod.POST)
+    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "POST")
+    @RequestMapping(value = "updateInfo",method = RequestMethod.POST,consumes = "application/json")
     @ResponseBody
     public RespResult updateInfo(@RequestBody ChClientEntity client){
         ChClientEntity oclient= chClientService.get(ChClientEntity.class,client.getId());
@@ -213,10 +223,12 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "设置新船期通知", httpMethod = "GET")
+    @ApiOperation(value = "设置新船期通知", httpMethod = "GET",produces="application/json")
     @RequestMapping(value = "newShipDate",method = RequestMethod.GET)
     @ResponseBody
-    public RespResult newShipDate(@RequestParam String clientId, @RequestParam String yOrN){
+    public RespResult newShipDate(@RequestBody JSONObject json){
+        String clientId = json.getString("clientId");
+        String yOrN = json.getString("yOrN");
         ChClientEntity client = chClientService.get(ChClientEntity.class,clientId);
         if (client!=null){
             client.setNewShipDate(yOrN);

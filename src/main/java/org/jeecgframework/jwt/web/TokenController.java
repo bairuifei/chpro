@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.jeecgframework.jwt.service.TokenManager;
 import org.jeecgframework.jwt.util.ResponseMessage;
@@ -17,11 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 获取和删除token的请求地址， 
@@ -43,7 +40,9 @@ public class TokenController {
 	@ApiOperation(value = "获取TOKEN")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+	public ResponseEntity<?> login(@RequestBody JSONObject json) {
+		String username = json.getString("username");
+		String password = json.getString("password");
 		logger.info("获取TOKEN[{}]" , username);
 		// 验证
 		if (StringUtils.isEmpty(username)) {
