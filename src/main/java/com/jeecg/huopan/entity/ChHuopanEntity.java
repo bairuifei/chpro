@@ -13,12 +13,12 @@ import java.sql.Blob;
 import org.hibernate.annotations.GenericGenerator;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
-/**   
+/**
  * @Title: Entity
  * @Description: 货盘
  * @author onlineGenerator
  * @date 2018-08-09 19:28:19
- * @version V1.0   
+ * @version V1.0
  *
  */
 @Entity
@@ -147,7 +147,9 @@ public class ChHuopanEntity implements java.io.Serializable {
 	private java.lang.String huopanClientName;
 	/**货盘类型*/
 	private java.lang.String huopantype;
-	
+	/**继续找船*/
+	private java.lang.String huopanContinue;
+
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  主键
@@ -900,5 +902,14 @@ public class ChHuopanEntity implements java.io.Serializable {
 
 	public void setHuopantype(String huopantype) {
 		this.huopantype = huopantype;
+	}
+
+	@Column(name ="huopan_continue",nullable=true,length=32)
+	public String getHuopanContinue() {
+		return huopanContinue;
+	}
+
+	public void setHuopanContinue(String huopanContinue) {
+		this.huopanContinue = huopanContinue;
 	}
 }

@@ -79,6 +79,8 @@ public class ChShipDateEntity implements java.io.Serializable {
 	private java.lang.String shipStayPortsStr;
 	/**用户ID*/
 	private java.lang.String shipClientId;
+	/**继续找货*/
+	private java.lang.String shipContinue;
 
 	/**
 	 *方法: 取得java.lang.String
@@ -458,5 +460,14 @@ public class ChShipDateEntity implements java.io.Serializable {
 
 	public void setShipStayPortsStr(String shipStayPortsStr) {
 		this.shipStayPortsStr = shipStayPortsStr;
+	}
+
+	@Column(name ="ship_continue",nullable=true,length=32)
+	public String getShipContinue() {
+		return shipContinue;
+	}
+
+	public void setShipContinue(String shipContinue) {
+		this.shipContinue = shipContinue;
 	}
 }

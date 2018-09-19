@@ -211,6 +211,7 @@ public class ChShipDateController extends BaseController {
 		message = "船期添加成功";
 		try{
 			ChShipEntity ship = chShipServiceI.get(ChShipEntity.class,chShipDate.getShipId());
+			chShipDate.setShipContinue("Y");
 			chShipDate.setShipClientId(ship.getShipClientId());
 			chShipDateService.save(chShipDate);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);

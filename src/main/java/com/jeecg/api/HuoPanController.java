@@ -2,6 +2,10 @@ package com.jeecg.api;
 
 import com.jeecg.huopan.entity.ChHuopanEntity;
 import com.jeecg.huopan.service.ChHuopanServiceI;
+import com.jeecg.position.entity.ChPositionEntity;
+import com.jeecg.position.service.ChPositionServiceI;
+import com.jeecg.shipdate.entity.ChShipDateEntity;
+import com.jeecg.shipdate.service.ChShipDateServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
@@ -26,6 +30,12 @@ public class HuoPanController {
 
     @Autowired
     private ChHuopanServiceI chHuopanServiceI;
+
+    @Autowired
+    private ChShipDateServiceI chShipDateServiceI;
+
+    @Autowired
+    private ChPositionServiceI chPositionService;
 
     @ApiOperation(value = "查看历史货盘", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.POST)
@@ -112,6 +122,7 @@ public class HuoPanController {
     @ResponseBody
     public RespResult save(@RequestBody ChHuopanEntity huopan){
         try {
+            huopan.setHuopanContinue("Y");
             chHuopanServiceI.save(huopan);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {
@@ -151,7 +162,21 @@ public class HuoPanController {
     @ResponseBody
     public RespResult suitShipDate(@RequestBody JSONObject json){
         try {
-            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),"暂未开发");
+            String huopanId = json.getString("huopanId");
+            ChHuopanEntity huopan = chHuopanServiceI.get(ChHuopanEntity.class,huopanId);
+            //查看货盘装货港
+            String positionId = huopan.getHuopanBegin();
+            ChPositionEntity position = chPositionService.get(ChPositionEntity.class,positionId);
+            //查看同组地点
+            List<ChPositionEntity> positions = chPositionService.findByProperty(ChPositionEntity.class,"positionTypeCode",position.getPositionTypeCode());
+            //检索同组地点下所有资源
+            StringBuffer sb = new StringBuffer();
+            for (ChPositionEntity positionEntity : positions){
+                sb.append(positionEntity.getId()).append(",");
+            }
+            String begins = sb.toString();
+            List<ChShipDateEntity> shipDateEntities = chShipDateServiceI.findHql("from ChShipDateEntity where shipFromPort in (?)",begins.substring(0,begins.length()-1));
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipDateEntities);
         } catch (Exception e) {
             e.printStackTrace();
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
@@ -163,7 +188,15 @@ public class HuoPanController {
     @ResponseBody
     public RespResult goonShip(@RequestBody JSONObject json){
         try {
-            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),"暂未开发");
+            String huopanId = json.getString("huopanId");
+            ChHuopanEntity huopan = chHuopanServiceI.get(ChHuopanEntity.class,huopanId);
+            if (huopan.getHuopanContinue().equals("Y")){
+                huopan.setHuopanContinue("N");
+            }else {
+                huopan.setHuopanContinue("Y");
+            }
+            chHuopanServiceI.updateEntitie(huopan);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {
             e.printStackTrace();
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);

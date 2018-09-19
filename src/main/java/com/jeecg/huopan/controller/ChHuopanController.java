@@ -173,6 +173,7 @@ public class ChHuopanController extends BaseController {
 			if (StringUtil.isEmpty(chHuopan.getHuopantype())){
 				chHuopan.setHuopantype("nooffice");
 			}
+			chHuopan.setHuopanContinue("Y");
 			chHuopan.setHuopanAudit("auditing");
 			chHuopanService.save(chHuopan);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
