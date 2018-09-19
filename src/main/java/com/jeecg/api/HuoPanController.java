@@ -27,8 +27,8 @@ public class HuoPanController {
     @Autowired
     private ChHuopanServiceI chHuopanServiceI;
 
-    @ApiOperation(value = "查看历史货盘", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ApiOperation(value = "查看历史货盘", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
     public RespResult list(@RequestBody JSONObject json){
         try {
@@ -41,8 +41,8 @@ public class HuoPanController {
         }
     }
 
-    @ApiOperation(value = "获取货盘信息", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "find",method = RequestMethod.GET)
+    @ApiOperation(value = "获取货盘信息", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "find",method = RequestMethod.POST)
     @ResponseBody
     public RespResult find(@RequestBody JSONObject json){
         try {
@@ -56,8 +56,8 @@ public class HuoPanController {
     }
 
 
-    @ApiOperation(value = "搜索货盘模块", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "search",method = RequestMethod.GET)
+    @ApiOperation(value = "搜索货盘模块", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "search",method = RequestMethod.POST)
     @ResponseBody
     public RespResult search(@RequestBody JSONObject json){
         try {
@@ -82,8 +82,8 @@ public class HuoPanController {
         }
     }
 
-    @ApiOperation(value = "获取官方货盘", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "office",method = RequestMethod.GET)
+    @ApiOperation(value = "获取官方货盘", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "office",method = RequestMethod.POST)
     @ResponseBody
     public RespResult office(){
         try {
@@ -122,8 +122,8 @@ public class HuoPanController {
         }
     }
 
-    @ApiOperation(value = "江湖评价", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "pingjia",method = RequestMethod.GET)
+    @ApiOperation(value = "江湖评价", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "pingjia",method = RequestMethod.POST)
     @ResponseBody
     public RespResult pingjia(@RequestBody JSONObject json){
         try {
@@ -134,8 +134,8 @@ public class HuoPanController {
         }
     }
 
-    @ApiOperation(value = "查看匹配的船期", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "suitShipDate",method = RequestMethod.GET)
+    @ApiOperation(value = "查看匹配的船期", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "suitShipDate",method = RequestMethod.POST)
     @ResponseBody
     public RespResult suitShipDate(@RequestBody JSONObject json){
         try {
@@ -146,8 +146,8 @@ public class HuoPanController {
         }
     }
 
-    @ApiOperation(value = "继续找船", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "goonShip",method = RequestMethod.GET)
+    @ApiOperation(value = "继续找船", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "goonShip",method = RequestMethod.POST)
     @ResponseBody
     public RespResult goonShip(@RequestBody JSONObject json){
         try {

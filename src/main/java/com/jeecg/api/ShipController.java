@@ -41,8 +41,8 @@ public class ShipController {
         }
     }
 
-    @ApiOperation(value = "获取船舶档案信息", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "find",method = RequestMethod.GET)
+    @ApiOperation(value = "获取船舶档案信息", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "find",method = RequestMethod.POST)
     @ResponseBody
     public RespResult find(@RequestBody JSONObject json){
         try {

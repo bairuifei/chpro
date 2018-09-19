@@ -89,8 +89,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "发送短信验证码", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "telCode",method = RequestMethod.GET)
+    @ApiOperation(value = "发送短信验证码", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "telCode",method = RequestMethod.POST)
     @ResponseBody
     public RespResult telCode(@RequestBody JSONObject json){
         String tel = json.getString("tel");
@@ -223,8 +223,8 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "设置新船期通知", httpMethod = "GET",produces="application/json")
-    @RequestMapping(value = "newShipDate",method = RequestMethod.GET)
+    @ApiOperation(value = "设置新船期通知", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "newShipDate",method = RequestMethod.POST)
     @ResponseBody
     public RespResult newShipDate(@RequestBody JSONObject json){
         String clientId = json.getString("clientId");
