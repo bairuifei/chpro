@@ -1,11 +1,15 @@
 package org.jeecgframework.jwt.web;
 
+import com.jeecg.api.RespMsg;
+import com.jeecg.api.RespResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.jeecgframework.jwt.def.JwtConstants;
+import org.jeecgframework.jwt.model.TokenModel;
 import org.jeecgframework.jwt.service.TokenManager;
 import org.jeecgframework.jwt.util.ResponseMessage;
 import org.jeecgframework.jwt.util.Result;
@@ -19,6 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 获取和删除token的请求地址， 
@@ -82,6 +88,21 @@ public class TokenController {
 			return Result.error("销毁TOKEN失败");
 		}
 		return Result.success();
+	}
+
+	@ApiOperation(value = "校验token")
+	@RequestMapping(value = "/checktoken", method = RequestMethod.POST)
+	@ResponseBody
+	public RespResult checktoken(@RequestBody JSONObject json,HttpServletRequest request) {
+		String username = json.getString("username");
+		//从header中得到token
+		String authHeader = request.getHeader(JwtConstants.AUTHORIZATION);
+		TokenModel model = tokenManager.getToken(authHeader,username.toString());
+		if (tokenManager.checkToken(model)) {
+			return new RespResult(0,RespMsg.SUCCESS.getCode(), RespMsg.SUCCESS.getMsg(),null);
+		}else {
+			return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+		}
 	}
 
 }
