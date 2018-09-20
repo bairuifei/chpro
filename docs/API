@@ -454,7 +454,6 @@ URL前缀：http://47.96.79.49:8080/rest
 			huopanCount:货量(Double)
 			huopanNote:备注(String)
 			huopanShipPosition:空船范围(String)
-			huopanShipPositionStr:空船范围(String)
 			huopanShipZaizhongMin:船舶载重吨最小(Integer)
 			huopanShipZaizhongMax:船舶载重吨最大(Integer)
 			huopanShipCount:船舶数量(Integer)
@@ -550,6 +549,55 @@ URL前缀：http://47.96.79.49:8080/rest
 	requet:
 		json:{
 			huopanId:货盘ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:null
+		}
+
+10.更新货盘
+	URL:/huopan/updateInfo
+	Method:POST
+	requet:
+		huopan:{
+			huopanBegin:装货港(String)
+			huopanBeginPort:装货港码头(String)
+			huopanEnd:卸货港(String)
+			huopanEndPort:卸货港码头(String)
+			huopanDate:装货日期(String yyyy-MM-dd)
+			huopanDateWucha:装货日期误差(Integer)
+			huopanName:货物名称(String)
+			huopanCount:货量(Double)
+			huopanNote:备注(String)
+			huopanShipPosition:空船范围(String)
+			huopanShipZaizhongMin:船舶载重吨最小(Integer)
+			huopanShipZaizhongMax:船舶载重吨最大(Integer)
+			huopanShipCount:船舶数量(Integer)
+			huopanShipFengcang:封舱(String)
+			huopanShipShuichi:水尺(String)
+			huopanShipDriveLocation:驾驶舱位置(String)
+			huopanShipChuankou:船口结构(String)
+			huopanShipDakong:打孔(String)
+			huopanShipChishui:吃水(String)
+			huopanShipLength:船长(String)
+			huopanShipWidth:船宽(String)
+			huopanShipHigh:船高(String)
+			huopanShipCangLength:舱口长(String)
+			huopanShipCangWidth:舱口宽(String)
+			huopanShipCangDeep:舱口深(String)
+			huopanFeeYun:运价(BigDecimal)
+			huopanFeeKaihang:开航费(BigDecimal)
+			huopanFeeZhiqi:滞期费(BigDecimal)
+			huopanFeeLoadtime:两港装卸时间(String)
+			huopanFeeJstype:结算方式(String)
+			huopanFeePaytype:付款方式(String)
+			huopanAudit:审核状态(String)
+			huopanClientId:用户ID(String)
+			huopanClientName:用户名称(String)
+			huopantype:货盘类型(String)
 		}
 	response:
 		{

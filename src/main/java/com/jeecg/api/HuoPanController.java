@@ -131,6 +131,129 @@ public class HuoPanController {
         }
     }
 
+    @ApiOperation(value = "更新货盘", httpMethod = "POST")
+    @RequestMapping(value = "updateInfo",method = RequestMethod.POST,consumes = "application/json")
+    @ResponseBody
+    public RespResult updateInfo(@RequestBody ChHuopanEntity huopan){
+        ChHuopanEntity ohuopan= chHuopanServiceI.get(ChHuopanEntity.class,huopan.getId());
+        if (ohuopan==null){
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+        try {
+            if(huopan.getHuopanBegin()!=null){
+                ohuopan.setHuopanBegin(huopan.getHuopanBegin());
+            }
+            if(huopan.getHuopanBeginPort()!=null){
+                ohuopan.setHuopanBeginPort(huopan.getHuopanBeginPort());
+            }
+            if(huopan.getHuopanEnd()!=null){
+                ohuopan.setHuopanEnd(huopan.getHuopanEnd());
+            }
+            if(huopan.getHuopanEndPort()!=null){
+                ohuopan.setHuopanEndPort(huopan.getHuopanEndPort());
+            }
+            if(huopan.getHuopanDate()!=null){
+                ohuopan.setHuopanDate(huopan.getHuopanDate());
+            }
+            if(huopan.getHuopanDateWucha()!=null){
+                ohuopan.setHuopanDateWucha(huopan.getHuopanDateWucha());
+            }
+            if(huopan.getHuopanName()!=null){
+                ohuopan.setHuopanName(huopan.getHuopanName());
+            }
+            if(huopan.getHuopanCount()!=null){
+                ohuopan.setHuopanCount(huopan.getHuopanCount());
+            }
+            if(huopan.getHuopanNote()!=null){
+                ohuopan.setHuopanNote(huopan.getHuopanNote());
+            }
+            if(huopan.getHuopanShipPosition()!=null){
+                ohuopan.setHuopanShipPosition(huopan.getHuopanShipPosition());
+            }
+            if(huopan.getHuopanShipZaizhongMin()!=null){
+                ohuopan.setHuopanShipZaizhongMin(huopan.getHuopanShipZaizhongMin());
+            }
+            if(huopan.getHuopanShipZaizhongMax()!=null){
+                ohuopan.setHuopanShipZaizhongMax(huopan.getHuopanShipZaizhongMax());
+            }
+            if(huopan.getHuopanShipCount()!=null){
+                ohuopan.setHuopanShipCount(huopan.getHuopanShipCount());
+            }
+            if(huopan.getHuopanShipFengcang()!=null){
+                ohuopan.setHuopanShipFengcang(huopan.getHuopanShipFengcang());
+            }
+            if(huopan.getHuopanShipShuichi()!=null){
+                ohuopan.setHuopanShipShuichi(huopan.getHuopanShipShuichi());
+            }
+            if(huopan.getHuopanShipDriveLocation()!=null){
+                ohuopan.setHuopanShipDriveLocation(huopan.getHuopanShipDriveLocation());
+            }
+            if(huopan.getHuopanShipChuankou()!=null){
+                ohuopan.setHuopanShipChuankou(huopan.getHuopanShipChuankou());
+            }
+            if(huopan.getHuopanShipDakong()!=null){
+                ohuopan.setHuopanShipDakong(huopan.getHuopanShipDakong());
+            }
+            if(huopan.getHuopanShipChishui()!=null){
+                ohuopan.setHuopanShipChishui(huopan.getHuopanShipChishui());
+            }
+            if(huopan.getHuopanShipLength()!=null){
+                ohuopan.setHuopanShipLength(huopan.getHuopanShipLength());
+            }
+            if(huopan.getHuopanShipWidth()!=null){
+                ohuopan.setHuopanShipWidth(huopan.getHuopanShipWidth());
+            }
+            if(huopan.getHuopanShipHigh()!=null){
+                ohuopan.setHuopanShipHigh(huopan.getHuopanShipHigh());
+            }
+            if(huopan.getHuopanShipCangLength()!=null){
+                ohuopan.setHuopanShipCangLength(huopan.getHuopanShipCangLength());
+            }
+            if(huopan.getHuopanShipCangWidth()!=null){
+                ohuopan.setHuopanShipCangWidth(huopan.getHuopanShipCangWidth());
+            }
+            if(huopan.getHuopanShipCangDeep()!=null){
+                ohuopan.setHuopanShipCangDeep(huopan.getHuopanShipCangDeep());
+            }
+            if(huopan.getHuopanFeeYun()!=null){
+                ohuopan.setHuopanFeeYun(huopan.getHuopanFeeYun());
+            }
+            if(huopan.getHuopanFeeKaihang()!=null){
+                ohuopan.setHuopanFeeKaihang(huopan.getHuopanFeeKaihang());
+            }
+            if(huopan.getHuopanFeeZhiqi()!=null){
+                ohuopan.setHuopanFeeZhiqi(huopan.getHuopanFeeZhiqi());
+            }
+            if(huopan.getHuopanFeeLoadtime()!=null){
+                ohuopan.setHuopanFeeLoadtime(huopan.getHuopanFeeLoadtime());
+            }
+            if(huopan.getHuopanFeeJstype()!=null){
+                ohuopan.setHuopanFeeJstype(huopan.getHuopanFeeJstype());
+            }
+            if(huopan.getHuopanFeePaytype()!=null){
+                ohuopan.setHuopanFeePaytype(huopan.getHuopanFeePaytype());
+            }
+            if(huopan.getHuopanAudit()!=null){
+                ohuopan.setHuopanAudit(huopan.getHuopanAudit());
+            }
+            if(huopan.getHuopanClientId()!=null){
+                ohuopan.setHuopanClientId(huopan.getHuopanClientId());
+            }
+            if(huopan.getHuopanClientName()!=null){
+                ohuopan.setHuopanClientName(huopan.getHuopanClientName());
+            }
+            if(huopan.getHuopantype()!=null){
+                ohuopan.setHuopantype(huopan.getHuopantype());
+            }
+
+            chHuopanServiceI.updateEntitie(ohuopan);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
     @ApiOperation(value = "删除货盘", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
