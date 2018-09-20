@@ -563,6 +563,7 @@ URL前缀：http://47.96.79.49:8080/rest
 	Method:POST
 	requet:
 		huopan:{
+		    id:货盘ID(String)
 			huopanBegin:装货港(String)
 			huopanBeginPort:装货港码头(String)
 			huopanEnd:卸货港(String)
