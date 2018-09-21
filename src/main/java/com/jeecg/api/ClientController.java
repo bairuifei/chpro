@@ -223,6 +223,38 @@ public class ClientController {
         }
     }
 
+    @ApiOperation(value = "标记货主", httpMethod = "POST")
+    @RequestMapping(value = "tagInfo",method = RequestMethod.POST,consumes = "application/json")
+    @ResponseBody
+    public RespResult tagInfo(@RequestBody JSONObject json){
+        String clientId = json.getString("clientId");
+        String type = json.getString("type");
+        ChClientEntity oclient= chClientService.get(ChClientEntity.class,clientId);
+        if (oclient==null){
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+        if (type.equals("huozhu")){
+            int count = oclient.getCountHuozhu();
+            oclient.setCountHuozhu(count+1);
+        }else if(type.equals("huodai")){
+            int count = oclient.getCountHuodai();
+            oclient.setCountHuodai(count+1);
+        }else if(type.equals("zhongjie")){
+            int count = oclient.getCountZhongjie();
+            oclient.setCountZhongjie(count+1);
+        }else if(type.equals("pianzi")){
+            int count = oclient.getCountPianzi();
+            oclient.setCountPianzi(count+1);
+        }
+        try {
+            chClientService.updateEntitie(oclient);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
     @ApiOperation(value = "设置新船期通知", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "newShipDate",method = RequestMethod.POST)
     @ResponseBody

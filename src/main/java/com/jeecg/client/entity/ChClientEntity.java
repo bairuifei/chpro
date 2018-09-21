@@ -86,6 +86,16 @@ public class ChClientEntity implements java.io.Serializable {
 	private java.lang.String clientType;
 	/**新船期通知*/
 	private java.lang.String newShipDate;
+	/**标记货主*/
+	private java.lang.Integer countHuozhu;
+	/**标记货代*/
+	private java.lang.Integer countHuodai;
+	/**标记中介*/
+	private java.lang.Integer countZhongjie;
+	/**标记骗子*/
+	private java.lang.Integer countPianzi;
+	/**声望*/
+	private java.lang.Integer clientHonor;
 
 	
 	/**
@@ -465,5 +475,50 @@ public class ChClientEntity implements java.io.Serializable {
 
 	public void setNewShipDate(String newShipDate) {
 		this.newShipDate = newShipDate;
+	}
+
+	@Column(name ="count_huozhu",nullable=true)
+	public Integer getCountHuozhu() {
+		return countHuozhu;
+	}
+
+	public void setCountHuozhu(Integer countHuozhu) {
+		this.countHuozhu = countHuozhu;
+	}
+
+	@Column(name ="count_huodai",nullable=true)
+	public Integer getCountHuodai() {
+		return countHuodai;
+	}
+
+	public void setCountHuodai(Integer countHuodai) {
+		this.countHuodai = countHuodai;
+	}
+
+	@Column(name ="count_zhongjie",nullable=true)
+	public Integer getCountZhongjie() {
+		return countZhongjie;
+	}
+
+	public void setCountZhongjie(Integer countZhongjie) {
+		this.countZhongjie = countZhongjie;
+	}
+
+	@Column(name ="count_pianzi",nullable=true)
+	public Integer getCountPianzi() {
+		return countPianzi;
+	}
+
+	public void setCountPianzi(Integer countPianzi) {
+		this.countPianzi = countPianzi;
+	}
+
+	@Column(name ="client_honor",nullable=true)
+	public Integer getClientHonor() {
+		return clientHonor;
+	}
+
+	public void setClientHonor(Integer clientHonor) {
+		this.clientHonor = clientHonor;
 	}
 }
