@@ -46,6 +46,47 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:图片存储路径(用于传递给后台)
 		}
 
+港口类：
+1.省份列表
+	URL:/position/provinceList
+	Method:POST
+	requet:
+		json:{
+			pname:省份名称(String)  注:不传查全部
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:[{
+                id: 省份主键(String)
+                provinceName: 省份名称(String)
+			},{}]
+		}
+
+2.港口列表
+	URL:/position/positionList
+	Method:POST
+	requet:
+		json:{
+			pid:省份ID(String)
+			portname:港口名称(String)  注:不传查全部
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:[{
+                id: 港口ID
+                positionName: 港口名称
+                positionTypeCode: 港口组编码
+                provinceId: 省份ID
+                provinceName: 省份名称
+			},{}]
+		}
+
 客户类：
 1.发送图片验证码：
 	URL:/client/yzCode
@@ -655,6 +696,31 @@ URL前缀：http://47.96.79.49:8080/rest
 				client_pwd:密码(String)
 				client_type:客户类型(船东ship 货主goods)
 				new_ship_date:新船期通知(通知Y 不通知N)
+				ship:{
+				    id:船舶ID(String)
+                    shipName:船名(String)
+                    shipZaizhong:船舶载重吨(Integer)
+                    shipBuildtime:建造日期(String yyyy-MM-dd)
+                    shipWater:满载吃水(Double)
+                    shipLength:船长(Double)
+                    shipWidth:船宽(Double)
+                    shipHigh:船高(Double)
+                    shipCangCount:舱口数量(Integer)
+                    shipCangLength:舱口长(Double)
+                    shipCangWidth:舱口宽(Double)
+                    shipCangDeep:舱口深(Double)
+                    shipDriveLocation:驾驶舱位置(String)
+                    shipFengDevice:封舱设备(String)
+                    shipDakong:打孔(String)
+                    shipShuichi:水尺(String)
+                    shipNote:备注(String)
+                    shipAudit:审核状态(String)
+                    shipClientId:用户ID(String)
+                    shipClientName:用户名称(String)
+                    shipAuditImg:认证图片(String)
+                    shipLong:经度(String)
+                    shipLat:纬度(String)
+				}
 			},{}]
 		}
 
@@ -771,7 +837,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			ret:响应结果(0成功/1失败)
 			errorCode:错误码
 			errorMsg:错误信息
-			data:null
+			data:船舶ID
 		}
 
 4.更新船舶/认证船舶/上传船舶位置
