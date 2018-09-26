@@ -270,6 +270,34 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:null
 		}
 
+11.ID获取客户信息
+	URL:/client/clientById
+	Method:POST
+	requet:
+		json:{
+			clientId:客户ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        clientName:姓名(String)
+                        clientSex:性别(女性1 男性0)
+                        clientMobile:手机号码(String)
+                        clientOpenid:微信openID(String)
+                        clientGzwx:公众号(关注1 未关注0)
+                        clientHeadimg:头像(String)
+                        clientRealname:真实姓名(String)
+                        clientCreditid:身份证号(String)
+                        clientVip:是否VIP(是Y 否N)
+                        clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                        clientPwd:密码(String)
+                        clientType:客户类型(船东ship 货主goods)
+                        newShipDate:新船期通知(通知Y 不通知N)
+                    }
+		}
 
 货盘类：
 1.查看历史货盘
@@ -570,6 +598,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
+			    id:船期ID(String)
 				shipId:船ID(String)
 				shipName:船名(String)
 				shipZaizhong:载重吨数(Integer)
@@ -581,6 +610,21 @@ URL前缀：http://47.96.79.49:8080/rest
 				shipNote:备注(String)
 				shipStayPorts:备用装货港(String)
 				shipClientId:用户ID(String)
+				client:{
+				    clientName:姓名(String)
+                    clientSex:性别(女性1 男性0)
+                    clientMobile:手机号码(String)
+                    clientOpenid:微信openID(String)
+                    clientGzwx:公众号(关注1 未关注0)
+                    clientHeadimg:头像(String)
+                    clientRealname:真实姓名(String)
+                    clientCreditid:身份证号(String)
+                    clientVip:是否VIP(是Y 否N)
+                    clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                    clientPwd:密码(String)
+                    clientType:客户类型(船东ship 货主goods)
+                    newShipDate:新船期通知(通知Y 不通知N)
+				}
 			},{}]
 		}
 
@@ -1027,4 +1071,31 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
 			},{}]
+		}
+
+6.ID获取船期
+	URL:/shipdate/shipDateById
+	Method:POST
+	requet:
+		json:{
+			shipDateId:船期ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        shipId:船ID(String)
+                        shipName:船名(String)
+                        shipZaizhong:载重吨数(Integer)
+                        shipEmptyDate:空船日期(String yyyy-MM-dd)
+                        shipEmptyDateCha:日期偏移天数(Integer)
+                        shipImg:船图片(String)
+                        shipFromPort:空船港(String)
+                        shipToPorts:目的港(String)
+                        shipNote:备注(String)
+                        shipStayPorts:备用装货港(String)
+                        shipClientId:用户ID(String)
+                    }
 		}

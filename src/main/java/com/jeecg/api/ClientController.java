@@ -270,4 +270,18 @@ public class ClientController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
+
+    @ApiOperation(value = "ID获取客户信息", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "clientById",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult clientById(@RequestBody JSONObject json){
+        String clientId = json.getString("clientId");
+        ChClientEntity client = chClientService.get(ChClientEntity.class,clientId);
+        if (client!=null){
+            client.setClientPwd("*");
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),client);
+        }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
 }

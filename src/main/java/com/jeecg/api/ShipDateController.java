@@ -124,4 +124,18 @@ public class ShipDateController {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }
+
+    @ApiOperation(value = "ID获取船期", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "shipDateById",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult shipDateById(@RequestBody JSONObject json){
+        try {
+            String shipDateId = json.getString("shipDateId");
+            ChShipDateEntity shipdate = chShipDateServiceI.get(ChShipDateEntity.class,shipDateId);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
 }

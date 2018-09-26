@@ -1,5 +1,7 @@
 package com.jeecg.api;
 
+import com.jeecg.client.entity.ChClientEntity;
+import com.jeecg.client.service.ChClientServiceI;
 import com.jeecg.huopan.entity.ChHuopanEntity;
 import com.jeecg.huopan.service.ChHuopanServiceI;
 import com.jeecg.position.entity.ChPositionEntity;
@@ -36,6 +38,9 @@ public class HuoPanController {
 
     @Autowired
     private ChPositionServiceI chPositionService;
+
+    @Autowired
+    private ChClientServiceI chClientServiceI;
 
     @ApiOperation(value = "查看历史货盘", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.POST)
@@ -299,6 +304,10 @@ public class HuoPanController {
             }
             String begins = sb.toString();
             List<ChShipDateEntity> shipDateEntities = chShipDateServiceI.findHql("from ChShipDateEntity where shipFromPort in (?)",begins.substring(0,begins.length()-1));
+            for (ChShipDateEntity shipdate : shipDateEntities){
+                ChClientEntity client = chClientServiceI.get(ChClientEntity.class,shipdate.getShipClientId());
+                shipdate.setClient(client);
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipDateEntities);
         } catch (Exception e) {
             e.printStackTrace();

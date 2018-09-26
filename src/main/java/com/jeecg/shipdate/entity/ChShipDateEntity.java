@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.xml.soap.Text;
 import java.sql.Blob;
 
+import com.jeecg.client.entity.ChClientEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
@@ -81,6 +82,9 @@ public class ChShipDateEntity implements java.io.Serializable {
 	private java.lang.String shipClientId;
 	/**继续找货*/
 	private java.lang.String shipContinue;
+
+	/**关联用户信息*/
+	private ChClientEntity client;
 
 	/**
 	 *方法: 取得java.lang.String
@@ -469,5 +473,14 @@ public class ChShipDateEntity implements java.io.Serializable {
 
 	public void setShipContinue(String shipContinue) {
 		this.shipContinue = shipContinue;
+	}
+
+	@Transient
+	public ChClientEntity getClient() {
+		return client;
+	}
+
+	public void setClient(ChClientEntity client) {
+		this.client = client;
 	}
 }
