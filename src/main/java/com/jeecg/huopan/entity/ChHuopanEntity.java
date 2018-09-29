@@ -151,6 +151,8 @@ public class ChHuopanEntity implements java.io.Serializable {
 	private java.lang.String huopantype;
 	/**继续找船*/
 	private java.lang.String huopanContinue;
+	/**是否长期*/
+	private java.lang.String huopanLong;
 
 	/**
 	 *方法: 取得java.lang.String
@@ -913,6 +915,15 @@ public class ChHuopanEntity implements java.io.Serializable {
 
 	public void setHuopanContinue(String huopanContinue) {
 		this.huopanContinue = huopanContinue;
+	}
+
+	@Column(name ="huopan_long",nullable=true,length=32)
+	public String getHuopanLong() {
+		return huopanLong;
+	}
+
+	public void setHuopanLong(String huopanLong) {
+		this.huopanLong = huopanLong;
 	}
 
 	@Transient

@@ -465,6 +465,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientId:用户ID(String)
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
+				huopanLong:是否长期(String)
 			},{...}]
 		}
 
@@ -519,6 +520,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientId:用户ID(String)
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
+				huopanLong:是否长期(String)
 			}
 		}
 
@@ -576,6 +578,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientId:用户ID(String)
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
+				huopanLong:是否长期(String)
 			},{...}]
 		}
 
@@ -628,6 +631,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientId:用户ID(String)
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
+				huopanLong:是否长期(String)
 			},{...}]
 		}
 
@@ -671,6 +675,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			huopanClientId:用户ID(String)
 			huopanClientName:用户名称(String)
 			huopantype:货盘类型(String)
+			huopanLong:是否长期(是Y 否N)
 		}
 	response:
 		{
@@ -810,6 +815,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			huopanClientId:用户ID(String)
 			huopanClientName:用户名称(String)
 			huopantype:货盘类型(String)
+			huopanLong:是否长期(是Y 否N)
 		}
 	response:
 		{

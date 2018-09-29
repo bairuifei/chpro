@@ -420,9 +420,13 @@
             </td>
             <td align="right">
                 <label class="Validform_label">
+                    是否长期:
                 </label>
             </td>
             <td class="value">
+                <t:dictSelect field="huopanLong" type="radio"  typeGroupCode="sf_yn"  defaultVal="${chHuopanPage.huopanLong}" hasLabel="false"  title="是否长期" ></t:dictSelect>
+                <span class="Validform_checktip"></span>
+                <label class="Validform_label" style="display: none;">是否长期</label>
             </td>
         </tr>
 
