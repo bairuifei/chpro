@@ -1,5 +1,7 @@
 package com.jeecg.api;
 
+import com.jeecg.client.entity.ChClientEntity;
+import com.jeecg.client.service.ChClientServiceI;
 import com.jeecg.huopan.entity.ChHuopanEntity;
 import com.jeecg.huopan.service.ChHuopanServiceI;
 import com.jeecg.position.entity.ChPositionEntity;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.jeecgframework.core.common.service.impl.RedisService;
 import org.jeecgframework.core.util.StringUtil;
+import org.jeecgframework.web.system.service.SystemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,58 @@ public class HuoPanController {
     @Autowired
     private ChPositionServiceI chPositionService;
 
+    @Autowired
+    private ChClientServiceI chClientServiceI;
+
+    @Autowired
+    private SystemService systemService;
+
+    private void showHuopan(ChHuopanEntity huopan){
+        String begin = huopan.getHuopanBegin();
+        String end = huopan.getHuopanEnd();
+        ChPositionEntity pobegin = systemService.getEntity(ChPositionEntity.class,begin);
+        ChPositionEntity poend = systemService.getEntity(ChPositionEntity.class,end);
+        huopan.setHuopanBeginStr(pobegin.getPositionName());
+        huopan.setHuopanEndStr(poend.getPositionName());
+        String[] ids = huopan.getHuopanShipPosition().split(",");
+        StringBuffer sb = new StringBuffer();
+        for (String id : ids){
+            ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+            sb.append(position.getPositionName()).append(",");
+        }
+        huopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
+    }
+
+    private void showShipdate(ChShipDateEntity chShipDate){
+        if (StringUtil.isNotEmpty(chShipDate.getShipFromPort())){
+            StringBuffer sb = new StringBuffer();
+            String[] ids = chShipDate.getShipFromPort().split(",");
+            for (String id : ids){
+                ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+                sb.append(position.getPositionName()).append(",");
+            }
+            chShipDate.setShipFromPortStr(sb.toString().substring(0,sb.toString().length()-1));
+        }
+        if (StringUtil.isNotEmpty(chShipDate.getShipToPorts())){
+            StringBuffer sb = new StringBuffer();
+            String[] ids = chShipDate.getShipToPorts().split(",");
+            for (String id : ids){
+                ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+                sb.append(position.getPositionName()).append(",");
+            }
+            chShipDate.setShipToPortsStr(sb.toString().substring(0,sb.toString().length()-1));
+        }
+        if (StringUtil.isNotEmpty(chShipDate.getShipStayPorts())){
+            StringBuffer sb = new StringBuffer();
+            String[] ids = chShipDate.getShipStayPorts().split(",");
+            for (String id : ids){
+                ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+                sb.append(position.getPositionName()).append(",");
+            }
+            chShipDate.setShipStayPortsStr(sb.toString().substring(0,sb.toString().length()-1));
+        }
+    }
+
     @ApiOperation(value = "查看历史货盘", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
@@ -44,6 +99,10 @@ public class HuoPanController {
         try {
             String clientId = json.getString("clientId");
             List<ChHuopanEntity> huopans = chHuopanServiceI.findByProperty(ChHuopanEntity.class,"huopanClientId",clientId);
+            //处理货盘显示字段
+            for(ChHuopanEntity huopan : huopans){
+                showHuopan(huopan);
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopans);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,6 +117,7 @@ public class HuoPanController {
         try {
             String huopanId = json.getString("huopanId");
             ChHuopanEntity huopan = chHuopanServiceI.get(ChHuopanEntity.class,huopanId);
+            showHuopan(huopan);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopan);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +133,8 @@ public class HuoPanController {
         try {
             String huopanBegin = null;
             String huopanEnd = null;
-            Integer zaiZhong = null;
+            Integer zaiZhongMin = null;
+            Integer zaiZhongMax = null;
             if (json.has("huopanBegin")){
                 huopanBegin = json.getString("huopanBegin");
 
@@ -82,21 +143,40 @@ public class HuoPanController {
                 huopanEnd = json.getString("huopanEnd");
 
             }
-            if (json.has("zaiZhong")){
-                zaiZhong = json.getInt("zaiZhong");
+            if (json.has("zaiZhongMin")){
+                zaiZhongMin = json.getInt("zaiZhongMin");
+
+            }
+            if (json.has("zaiZhongMax")){
+                zaiZhongMax = json.getInt("zaiZhongMax");
 
             }
             StringBuffer hql = new StringBuffer("from ChHuopanEntity where 1=1");
             if (StringUtil.isNotEmpty(huopanBegin)){
-                hql.append(" and huopanBegin = ").append(huopanBegin);
+                huopanBegin = huopanBegin.replaceAll(",","\",\"");
+                hql.append(" and huopanBegin in ").append("(\"").append(huopanBegin).append("\")");
             }
             if (StringUtil.isNotEmpty(huopanEnd)){
-                hql.append(" and huopanEnd = ").append(huopanEnd);
+                huopanEnd = huopanEnd.replaceAll(",","\",\"");
+                hql.append(" and huopanEnd in ").append("(\"").append(huopanEnd).append("\")");
             }
-            if (zaiZhong!=null){
-                hql.append(" and huopanShipZaizhongMin <= ").append(zaiZhong).append(" and huopanShipZaizhongMax >= ").append(zaiZhong);
+            if (zaiZhongMin!=null && zaiZhongMax!=null){
+                //全包含
+                hql.append(" and ((huopanShipZaizhongMin >= ").append(zaiZhongMin).append(" and huopanShipZaizhongMax <= ").append(zaiZhongMax).append(")");
+                hql.append(" or (huopanShipZaizhongMin <= ").append(zaiZhongMin).append(" and huopanShipZaizhongMax >= ").append(zaiZhongMin).append(")");
+                hql.append(" or (huopanShipZaizhongMin <= ").append(zaiZhongMax).append(" and huopanShipZaizhongMax >= ").append(zaiZhongMax).append("))");
+            }
+            if (zaiZhongMin!=null && zaiZhongMax==null){
+                hql.append(" and huopanShipZaizhongMax >= ").append(zaiZhongMin);
+            }
+            if (zaiZhongMin==null && zaiZhongMax!=null){
+                hql.append(" and huopanShipZaizhongMin <= ").append(zaiZhongMax);
             }
             List<ChHuopanEntity> huopans = chHuopanServiceI.findByQueryString(hql.toString());
+            //处理货盘显示字段
+            for(ChHuopanEntity huopan : huopans){
+                showHuopan(huopan);
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopans);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +190,10 @@ public class HuoPanController {
     public RespResult office(){
         try {
             List<ChHuopanEntity> huopans = chHuopanServiceI.findByProperty(ChHuopanEntity.class,"huopantype","office");
+            //处理货盘显示字段
+            for(ChHuopanEntity huopan : huopans){
+                showHuopan(huopan);
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),huopans);
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,6 +383,11 @@ public class HuoPanController {
             }
             String begins = sb.toString();
             List<ChShipDateEntity> shipDateEntities = chShipDateServiceI.findHql("from ChShipDateEntity where shipFromPort in (?)",begins.substring(0,begins.length()-1));
+            for (ChShipDateEntity shipdate : shipDateEntities){
+                ChClientEntity client = chClientServiceI.get(ChClientEntity.class,shipdate.getShipClientId());
+                shipdate.setClient(client);
+                showShipdate(shipdate);
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),shipDateEntities);
         } catch (Exception e) {
             e.printStackTrace();

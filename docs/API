@@ -46,6 +46,47 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:图片存储路径(用于传递给后台)
 		}
 
+港口类：
+1.省份列表
+	URL:/position/provinceList
+	Method:POST
+	requet:
+		json:{
+			pname:省份名称(String)  注:不传查全部
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:[{
+                id: 省份主键(String)
+                provinceName: 省份名称(String)
+			},{}]
+		}
+
+2.港口列表
+	URL:/position/positionList
+	Method:POST
+	requet:
+		json:{
+			pid:省份ID(String)
+			portname:港口名称(String)  注:不传查全部
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:[{
+                id: 港口ID
+                positionName: 港口名称
+                positionTypeCode: 港口组编码
+                provinceId: 省份ID
+                provinceName: 省份名称
+			},{}]
+		}
+
 客户类：
 1.发送图片验证码：
 	URL:/client/yzCode
@@ -343,6 +384,34 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:null
 		}
 
+11.ID获取客户信息
+	URL:/client/clientById
+	Method:POST
+	requet:
+		json:{
+			clientId:客户ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        clientName:姓名(String)
+                        clientSex:性别(女性1 男性0)
+                        clientMobile:手机号码(String)
+                        clientOpenid:微信openID(String)
+                        clientGzwx:公众号(关注1 未关注0)
+                        clientHeadimg:头像(String)
+                        clientRealname:真实姓名(String)
+                        clientCreditid:身份证号(String)
+                        clientVip:是否VIP(是Y 否N)
+                        clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                        clientPwd:密码(String)
+                        clientType:客户类型(船东ship 货主goods)
+                        newShipDate:新船期通知(通知Y 不通知N)
+                    }
+		}
 
 货盘类：
 1.查看历史货盘
@@ -359,8 +428,10 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorMsg:错误信息
 			data:[{
 				huopanBegin:装货港(String)
+				huopanBeginStr:装货港展示(String)
 				huopanBeginPort:装货港码头(String)
 				huopanEnd:卸货港(String)
+				huopanEndStr:卸货港展示(String)
 				huopanEndPort:卸货港码头(String)
 				huopanDate:装货日期(String yyyy-MM-dd)
 				huopanDateWucha:装货日期误差(Integer)
@@ -368,7 +439,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanCount:货量(Double)
 				huopanNote:备注(String)
 				huopanShipPosition:空船范围(String)
-				huopanShipPositionStr:空船范围(String)
+				huopanShipPositionStr:空船范围展示(String)
 				huopanShipZaizhongMin:船舶载重吨最小(Integer)
 				huopanShipZaizhongMax:船舶载重吨最大(Integer)
 				huopanShipCount:船舶数量(Integer)
@@ -410,9 +481,10 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:{
-				huopanBegin:装货港(String)
-				huopanBeginPort:装货港码头(String)
-				huopanEnd:卸货港(String)
+				huopanBeginStr:装货港展示(String)
+                huopanBeginPort:装货港码头(String)
+                huopanEnd:卸货港(String)
+                huopanEndStr:卸货港展示(String)
 				huopanEndPort:卸货港码头(String)
 				huopanDate:装货日期(String yyyy-MM-dd)
 				huopanDateWucha:装货日期误差(Integer)
@@ -456,7 +528,8 @@ URL前缀：http://47.96.79.49:8080/rest
 		json:{
 			huopanBegin:装货港(String)
 			huopanEnd:卸货港(String)
-			zaiZhong:载重(Integer)
+			zaiZhongMin:载重最小(Integer)
+			zaiZhongMax:载重最大(Integer)
 		}
 	response:
 		{
@@ -464,9 +537,10 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
-				huopanBegin:装货港(String)
-				huopanBeginPort:装货港码头(String)
-				huopanEnd:卸货港(String)
+				huopanBeginStr:装货港展示(String)
+                huopanBeginPort:装货港码头(String)
+                huopanEnd:卸货港(String)
+                huopanEndStr:卸货港展示(String)
 				huopanEndPort:卸货港码头(String)
 				huopanDate:装货日期(String yyyy-MM-dd)
 				huopanDateWucha:装货日期误差(Integer)
@@ -514,9 +588,10 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
-				huopanBegin:装货港(String)
-				huopanBeginPort:装货港码头(String)
-				huopanEnd:卸货港(String)
+				huopanBeginStr:装货港展示(String)
+                huopanBeginPort:装货港码头(String)
+                huopanEnd:卸货港(String)
+                huopanEndStr:卸货港展示(String)
 				huopanEndPort:卸货港码头(String)
 				huopanDate:装货日期(String yyyy-MM-dd)
 				huopanDateWucha:装货日期误差(Integer)
@@ -558,9 +633,10 @@ URL前缀：http://47.96.79.49:8080/rest
 	Method:POST
 	requet:
 		huopan:{
-			huopanBegin:装货港(String)
-			huopanBeginPort:装货港码头(String)
-			huopanEnd:卸货港(String)
+			huopanBeginStr:装货港展示(String)
+            huopanBeginPort:装货港码头(String)
+            huopanEnd:卸货港(String)
+            huopanEndStr:卸货港展示(String)
 			huopanEndPort:卸货港码头(String)
 			huopanDate:装货日期(String yyyy-MM-dd)
 			huopanDateWucha:装货日期误差(Integer)
@@ -643,6 +719,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
+			    id:船期ID(String)
 				shipId:船ID(String)
 				shipName:船名(String)
 				shipZaizhong:载重吨数(Integer)
@@ -650,10 +727,28 @@ URL前缀：http://47.96.79.49:8080/rest
 				shipEmptyDateCha:日期偏移天数(Integer)
 				shipImg:船图片(String)
 				shipFromPort:空船港(String)
+				shipFromPortStr:空船港展示(String)
 				shipToPorts:目的港(String)
+				shipToPortsStr:目的港展示(String)
 				shipNote:备注(String)
 				shipStayPorts:备用装货港(String)
+				shipStayPortsStr:备用装货港展示(String)
 				shipClientId:用户ID(String)
+				client:{
+				    clientName:姓名(String)
+                    clientSex:性别(女性1 男性0)
+                    clientMobile:手机号码(String)
+                    clientOpenid:微信openID(String)
+                    clientGzwx:公众号(关注1 未关注0)
+                    clientHeadimg:头像(String)
+                    clientRealname:真实姓名(String)
+                    clientCreditid:身份证号(String)
+                    clientVip:是否VIP(是Y 否N)
+                    clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                    clientPwd:密码(String)
+                    clientType:客户类型(船东ship 货主goods)
+                    newShipDate:新船期通知(通知Y 不通知N)
+				}
 			},{}]
 		}
 
@@ -769,6 +864,31 @@ URL前缀：http://47.96.79.49:8080/rest
 				client_pwd:密码(String)
 				client_type:客户类型(船东ship 货主goods)
 				new_ship_date:新船期通知(通知Y 不通知N)
+				ship:{
+				    id:船舶ID(String)
+                    shipName:船名(String)
+                    shipZaizhong:船舶载重吨(Integer)
+                    shipBuildtime:建造日期(String yyyy-MM-dd)
+                    shipWater:满载吃水(Double)
+                    shipLength:船长(Double)
+                    shipWidth:船宽(Double)
+                    shipHigh:船高(Double)
+                    shipCangCount:舱口数量(Integer)
+                    shipCangLength:舱口长(Double)
+                    shipCangWidth:舱口宽(Double)
+                    shipCangDeep:舱口深(Double)
+                    shipDriveLocation:驾驶舱位置(String)
+                    shipFengDevice:封舱设备(String)
+                    shipDakong:打孔(String)
+                    shipShuichi:水尺(String)
+                    shipNote:备注(String)
+                    shipAudit:审核状态(String)
+                    shipClientId:用户ID(String)
+                    shipClientName:用户名称(String)
+                    shipAuditImg:认证图片(String)
+                    shipLong:经度(String)
+                    shipLat:纬度(String)
+				}
 			},{}]
 		}
 
@@ -885,7 +1005,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			ret:响应结果(0成功/1失败)
 			errorCode:错误码
 			errorMsg:错误信息
-			data:null
+			data:船舶ID
 		}
 
 4.更新船舶/认证船舶/上传船舶位置
@@ -987,9 +1107,12 @@ URL前缀：http://47.96.79.49:8080/rest
 				shipEmptyDateCha:日期偏移天数(Integer)
 				shipImg:船图片(String)
 				shipFromPort:空船港(String)
-				shipToPorts:目的港(String)
-				shipNote:备注(String)
-				shipStayPorts:备用装货港(String)
+                shipFromPortStr:空船港展示(String)
+                shipToPorts:目的港(String)
+                shipToPortsStr:目的港展示(String)
+                shipNote:备注(String)
+                shipStayPorts:备用装货港(String)
+                shipStayPortsStr:备用装货港展示(String)
 				shipClientId:用户ID(String)
 			},{}]
 		}
@@ -1039,8 +1162,10 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:[{
 				id:货盘ID(String)
 				huopanBegin:装货港(String)
-				huopanBeginPort:装货港码头(String)
-				huopanEnd:卸货港(String)
+                huopanBeginStr:装货港展示(String)
+                huopanBeginPort:装货港码头(String)
+                huopanEnd:卸货港(String)
+                huopanEndStr:卸货港展示(String)
 				huopanEndPort:卸货港码头(String)
 				huopanDate:装货日期(String yyyy-MM-dd)
 				huopanDateWucha:装货日期误差(Integer)
@@ -1074,5 +1199,68 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanClientId:用户ID(String)
 				huopanClientName:用户名称(String)
 				huopantype:货盘类型(String)
+			},{}]
+		}
+
+6.ID获取船期
+	URL:/shipdate/shipDateById
+	Method:POST
+	requet:
+		json:{
+			shipDateId:船期ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        shipId:船ID(String)
+                        shipName:船名(String)
+                        shipZaizhong:载重吨数(Integer)
+                        shipEmptyDate:空船日期(String yyyy-MM-dd)
+                        shipEmptyDateCha:日期偏移天数(Integer)
+                        shipImg:船图片(String)
+                        shipFromPort:空船港(String)
+                        shipFromPortStr:空船港展示(String)
+                        shipToPorts:目的港(String)
+                        shipToPortsStr:目的港展示(String)
+                        shipNote:备注(String)
+                        shipStayPorts:备用装货港(String)
+                        shipStayPortsStr:备用装货港展示(String)
+                        shipClientId:用户ID(String)
+                    }
+		}
+
+7.搜索船期模块
+	URL:/shipdate/search
+	Method:POST
+	requet:
+		json:{
+			shipDateBegin:空船港(String)
+			shipDateEnd:目的港(String)
+			zaiZhongMin:载重吨数最小(String)
+			zaiZhongMax:载重吨数最大(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:[{
+				shipId:船ID(String)
+				shipName:船名(String)
+				shipZaizhong:载重吨数(Integer)
+				shipEmptyDate:空船日期(String yyyy-MM-dd)
+				shipEmptyDateCha:日期偏移天数(Integer)
+				shipImg:船图片(String)
+				shipFromPort:空船港(String)
+                shipFromPortStr:空船港展示(String)
+                shipToPorts:目的港(String)
+                shipToPortsStr:目的港展示(String)
+                shipNote:备注(String)
+                shipStayPorts:备用装货港(String)
+                shipStayPortsStr:备用装货港展示(String)
+				shipClientId:用户ID(String)
 			},{}]
 		}

@@ -48,12 +48,14 @@ public class ChHuopanEntity implements java.io.Serializable {
 	/**装货港*/
 	@Excel(name="装货港",width=15)
 	private java.lang.String huopanBegin;
+	private java.lang.String huopanBeginStr;
 	/**装货港码头*/
 	@Excel(name="装货港码头",width=15)
 	private java.lang.String huopanBeginPort;
 	/**卸货港*/
 	@Excel(name="卸货港",width=15)
 	private java.lang.String huopanEnd;
+	private java.lang.String huopanEndStr;
 	/**卸货港码头*/
 	@Excel(name="卸货港码头",width=15)
 	private java.lang.String huopanEndPort;
@@ -911,5 +913,23 @@ public class ChHuopanEntity implements java.io.Serializable {
 
 	public void setHuopanContinue(String huopanContinue) {
 		this.huopanContinue = huopanContinue;
+	}
+
+	@Transient
+	public String getHuopanBeginStr() {
+		return huopanBeginStr;
+	}
+
+	public void setHuopanBeginStr(String huopanBeginStr) {
+		this.huopanBeginStr = huopanBeginStr;
+	}
+
+	@Transient
+	public String getHuopanEndStr() {
+		return huopanEndStr;
+	}
+
+	public void setHuopanEndStr(String huopanEndStr) {
+		this.huopanEndStr = huopanEndStr;
 	}
 }

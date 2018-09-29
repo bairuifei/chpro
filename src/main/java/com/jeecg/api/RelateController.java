@@ -3,6 +3,8 @@ package com.jeecg.api;
 import com.jeecg.client.entity.ChClientEntity;
 import com.jeecg.relate.entity.ChClientRelateEntity;
 import com.jeecg.relate.service.ChClientRelateServiceI;
+import com.jeecg.ship.entity.ChShipEntity;
+import com.jeecg.ship.service.ChShipServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,9 @@ public class RelateController {
 
     @Autowired
     private ChClientRelateServiceI chClientRelateServiceI;
+
+    @Autowired
+    private ChShipServiceI chShipServiceI;
 
     @ApiOperation(value = "保存客户关系", httpMethod = "POST",produces="application/json")
     @RequestMapping(value = "save",method = RequestMethod.POST)
@@ -49,6 +55,15 @@ public class RelateController {
             String clientId = json.getString("clientId");
             String type = json.getString("type");
             List<Map<String, Object>> relateEntities = chClientRelateServiceI.findForJdbc("select client.* from ch_client client left join ch_client_relate relate on client.id = relate.relate_id where relate.client_id = ? and relate.type = ?",clientId,type);
+            for (Map<String, Object> relate : relateEntities){
+                if ((relate.get("client_type")).equals("ship")){
+                    //如果是船东，新增船舶信息
+                    List<ChShipEntity> ships = chShipServiceI.findByProperty(ChShipEntity.class,"shipClientId",relate.get("id"));
+                    if (ships!=null && ships.size()>0){
+                        relate.put("ship",ships.get(0));
+                    }
+                }
+            }
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),relateEntities);
         } catch (Exception e) {
             e.printStackTrace();
