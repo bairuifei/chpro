@@ -6,6 +6,7 @@ package com.jeecg.api;
 public enum RespMsg {
     SUCCESS("000","成功"),
     FAIL("111","失败"),
+    OVERTIMES("-1","查看次数已满"),
     ;
     private String code;
     private String msg;

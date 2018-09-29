@@ -3,6 +3,8 @@ package com.jeecg.api;
 import com.jeecg.client.entity.ChClientEntity;
 import com.jeecg.client.service.ChClientServiceI;
 import com.jeecg.util.YzCodeUtils;
+import com.jeecg.watchlog.entity.ChWatchLogEntity;
+import com.jeecg.watchlog.service.ChWatchLogServiceI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
@@ -19,7 +21,9 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +38,9 @@ public class ClientController {
 
     @Autowired
     private ChClientServiceI chClientService;
+
+    @Autowired
+    private ChWatchLogServiceI chWatchLogServiceI;
 
     /**
      * 验证码集合
@@ -156,8 +163,20 @@ public class ClientController {
         }
         List<ChClientEntity> clients = chClientService.findHql("from ChClientEntity where clientMobile = ? and clientPwd = ?",tel,pwd);
         if (clients!=null && clients.size()>0){
-            clients.get(0).setClientPwd("*");
-            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),clients.get(0));
+            ChClientEntity client = clients.get(0);
+            //每天首次登录新增10点声望
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String today = sdf.format(new Date());
+            String logindate = client.getLoginDate();
+            if (StringUtil.isEmpty(logindate) || !today.equals(logindate)){
+                //首次登录
+                client.setLoginDate(today);
+                int honor = client.getClientHonor();
+                client.setClientHonor(honor+10);
+                chClientService.updateEntitie(client);
+            }
+            client.setClientPwd("*");
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),client);
         }else {
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
@@ -182,7 +201,7 @@ public class ClientController {
         }
     }
 
-    @ApiOperation(value = "更新我的资料/更新手机/实名认证", httpMethod = "POST")
+    @ApiOperation(value = "更新我的资料/更新手机", httpMethod = "POST")
     @RequestMapping(value = "updateInfo",method = RequestMethod.POST,consumes = "application/json")
     @ResponseBody
     public RespResult updateInfo(@RequestBody ChClientEntity client){
@@ -215,6 +234,50 @@ public class ClientController {
             if(client.getClientCreditid()!=null){
                 oclient.setClientCreditid(client.getClientCreditid());
             }
+            chClientService.updateEntitie(oclient);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "实名认证", httpMethod = "POST")
+    @RequestMapping(value = "certification",method = RequestMethod.POST,consumes = "application/json")
+    @ResponseBody
+    public RespResult certification(@RequestBody ChClientEntity client){
+        ChClientEntity oclient= chClientService.get(ChClientEntity.class,client.getId());
+        if (oclient==null){
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+        try {
+            if(client.getClientHeadimg()!=null){
+                oclient.setClientHeadimg(client.getClientHeadimg());
+            }
+            if(client.getClientName()!=null){
+                oclient.setClientName(client.getClientName());
+            }
+            if(client.getClientSex()!=null){
+                oclient.setClientSex(client.getClientSex());
+            }
+            if(client.getClientOpenid()!=null){
+                oclient.setClientOpenid(client.getClientOpenid());
+            }
+            if(client.getClientGzwx()!=null){
+                oclient.setClientGzwx(client.getClientGzwx());
+            }
+            if(client.getClientMobile()!=null){
+                oclient.setClientMobile(client.getClientMobile());
+            }
+            if(client.getClientRealname()!=null){
+                oclient.setClientRealname(client.getClientRealname());
+            }
+            if(client.getClientCreditid()!=null){
+                oclient.setClientCreditid(client.getClientCreditid());
+            }
+            //实名新增200点声望
+            int honor = oclient.getClientHonor();
+            oclient.setClientHonor(honor+200);
             chClientService.updateEntitie(oclient);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         } catch (Exception e) {
@@ -267,6 +330,65 @@ public class ClientController {
             chClientService.updateEntitie(client);
             return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
         }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "查看用户信息（含隐藏信息）", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "userInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult userInfo(@RequestBody JSONObject json){
+        String watchId = json.getString("watchId");
+        String watchedId = json.getString("watchedId");
+        ChClientEntity client = chClientService.get(ChClientEntity.class,watchedId);
+        if (client!=null){
+            List<ChWatchLogEntity> wls = chWatchLogServiceI.findHql("from ChWatchLogEntity where wlWatchId=? and wlWatchedId=?",watchId,watchedId);
+            if (wls!=null && wls.size()>0){
+                //看过，不做处理
+            }else {
+                //没看过，处理隐藏信息
+                client.setClientName("********");
+                client.setClientMobile("********");
+                client.setClientRealname("********");
+                client.setClientCreditid("********");
+            }
+            client.setClientPwd("*");
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),client);
+        }else {
+            return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+        }
+    }
+
+    @ApiOperation(value = "查看用户信息（增加次数）", httpMethod = "POST",produces="application/json")
+    @RequestMapping(value = "watchUser",method = RequestMethod.POST)
+    @ResponseBody
+    public RespResult watchUser(@RequestBody JSONObject json){
+        try {
+            String watchId = json.getString("watchId");
+            String watchedId = json.getString("watchedId");
+            ChClientEntity oclient = chClientService.get(ChClientEntity.class,watchId);
+            //查看人是否vip
+            if (StringUtil.isEmpty(oclient.getClientVip()) || oclient.getClientVip().equals("N")){
+                //不是vip
+                List<ChWatchLogEntity> owls = chWatchLogServiceI.findByProperty(ChWatchLogEntity.class,"wlWatchId",watchId);
+                if (owls!=null && owls.size()>=10){
+                    return new RespResult(1,RespMsg.OVERTIMES.getCode(),RespMsg.OVERTIMES.getMsg(),null);
+                }
+            }
+            //新增查看次数
+            ChWatchLogEntity log = new ChWatchLogEntity();
+            log.setWlWatchId(watchId);
+            log.setWlWatchedId(watchedId);
+            chWatchLogServiceI.save(log);
+            ChClientEntity client = chClientService.get(ChClientEntity.class,watchedId);
+            client.setClientPwd("*");
+            if (client!=null){
+                return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),client);
+            }else {
+                return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);
         }
     }

@@ -96,6 +96,8 @@ public class ChClientEntity implements java.io.Serializable {
 	private java.lang.Integer countPianzi;
 	/**声望*/
 	private java.lang.Integer clientHonor;
+	/**最新登录日期*/
+	private java.lang.String loginDate;
 
 	
 	/**
@@ -520,5 +522,14 @@ public class ChClientEntity implements java.io.Serializable {
 
 	public void setClientHonor(Integer clientHonor) {
 		this.clientHonor = clientHonor;
+	}
+
+	@Column(name ="login_date",nullable=true)
+	public String getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(String loginDate) {
+		this.loginDate = loginDate;
 	}
 }

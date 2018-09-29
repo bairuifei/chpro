@@ -62,8 +62,8 @@ public class ShipController {
     public RespResult save(@RequestBody ChShipEntity ship){
         try {
             ship.setShipAudit("auditing");
-            chShipServiceI.save(ship);
-            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),null);
+            String id = (String) chShipServiceI.save(ship);
+            return new RespResult(0,RespMsg.SUCCESS.getCode(),RespMsg.SUCCESS.getMsg(),id);
         } catch (Exception e) {
             e.printStackTrace();
             return new RespResult(1,RespMsg.FAIL.getCode(),RespMsg.FAIL.getMsg(),null);

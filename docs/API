@@ -171,6 +171,11 @@ URL前缀：http://47.96.79.49:8080/rest
 				clientPwd:密码(String)
 				clientType:客户类型(船东ship 货主goods)
 				newShipDate:新船期通知(通知Y 不通知N)
+                countHuozhu:标记货主次数(Integer)
+                countHuodai:标记货代次数(Integer)
+                countZhongjie:标记中介次数(Integer)
+                countPianzi:标记骗子次数(Integer)
+                clientHonor:声望(Integer)
 			}
 		}
 
@@ -190,7 +195,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:null
 		}
 
-9.更新我的资料/更新手机/实名认证
+9.更新我的资料/更新手机
 	URL:/client/updateInfo
 	Method:POST
 	requet:
@@ -220,6 +225,115 @@ URL前缀：http://47.96.79.49:8080/rest
 		json:{
 			clientId:客户ID(String)
 			yOrN:新船期通知(通知Y 不通知N)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:null
+		}
+
+11.标记货主
+	URL:/client/tagInfo
+	Method:POST
+	requet:
+		json:{
+			clientId:客户ID(String)
+			type:被标记类型(货主huozhu 货代huodai 中介zhongjie 骗子pianzi)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:null
+		}
+
+12.查看用户信息（含隐藏信息）
+	URL:/client/userInfo
+	Method:POST
+	requet:
+		json:{
+			watchId:查看客户ID(String)
+			watchedId:被查看客户ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        clientName:姓名(String)
+                        clientSex:性别(女性1 男性0)
+                        clientMobile:手机号码(String)
+                        clientOpenid:微信openID(String)
+                        clientGzwx:公众号(关注1 未关注0)
+                        clientHeadimg:头像(String)
+                        clientRealname:真实姓名(String)
+                        clientCreditid:身份证号(String)
+                        clientVip:是否VIP(是Y 否N)
+                        clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                        clientPwd:密码(String)
+                        clientType:客户类型(船东ship 货主goods)
+                        newShipDate:新船期通知(通知Y 不通知N)
+                        countHuozhu:标记货主次数(Integer)
+                        countHuodai:标记货代次数(Integer)
+                        countZhongjie:标记中介次数(Integer)
+                        countPianzi:标记骗子次数(Integer)
+                        clientHonor:声望(Integer)
+                    }
+		}
+
+13.查看用户信息（增加次数）
+	URL:/client/watchUser
+	Method:POST
+	requet:
+		json:{
+			watchId:查看客户ID(String)
+			watchedId:被查看客户ID(String)
+		}
+	response:
+		{
+			ret:响应结果(0成功/1失败)
+			errorCode:错误码
+			errorMsg:错误信息
+			data:{
+                        clientName:姓名(String)
+                        clientSex:性别(女性1 男性0)
+                        clientMobile:手机号码(String)
+                        clientOpenid:微信openID(String)
+                        clientGzwx:公众号(关注1 未关注0)
+                        clientHeadimg:头像(String)
+                        clientRealname:真实姓名(String)
+                        clientCreditid:身份证号(String)
+                        clientVip:是否VIP(是Y 否N)
+                        clientVipend:截止时间(String yyyy-MM-dd HH:mm:ss)
+                        clientPwd:密码(String)
+                        clientType:客户类型(船东ship 货主goods)
+                        newShipDate:新船期通知(通知Y 不通知N)
+                        countHuozhu:标记货主次数(Integer)
+                        countHuodai:标记货代次数(Integer)
+                        countZhongjie:标记中介次数(Integer)
+                        countPianzi:标记骗子次数(Integer)
+                        clientHonor:声望(Integer)
+                    }
+		}
+
+14.实名认证
+	URL:/client/certification
+	Method:POST
+	requet:
+		client:{
+			id:客户ID(String)
+			clientName:姓名(String)
+			clientSex:性别(女性1 男性0)
+			clientMobile:手机号码(String)
+			clientOpenid:微信openID(String)
+			clientGzwx:公众号(关注1 未关注0)
+			clientHeadimg:头像(String)
+			clientRealname:真实姓名(String)
+			clientCreditid:身份证号(String)
 		}
 	response:
 		{
