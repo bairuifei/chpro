@@ -384,7 +384,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			data:null
 		}
 
-11.ID获取客户信息
+15.ID获取客户信息
 	URL:/client/clientById
 	Method:POST
 	requet:
@@ -481,6 +481,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:{
+			    huopanBegin:装货港(String)
 				huopanBeginStr:装货港展示(String)
                 huopanBeginPort:装货港码头(String)
                 huopanEnd:卸货港(String)
@@ -492,7 +493,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanCount:货量(Double)
 				huopanNote:备注(String)
 				huopanShipPosition:空船范围(String)
-				huopanShipPositionStr:空船范围(String)
+				huopanShipPositionStr:空船范围展示(String)
 				huopanShipZaizhongMin:船舶载重吨最小(Integer)
 				huopanShipZaizhongMax:船舶载重吨最大(Integer)
 				huopanShipCount:船舶数量(Integer)
@@ -537,6 +538,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
+			    huopanBegin:装货港(String)
 				huopanBeginStr:装货港展示(String)
                 huopanBeginPort:装货港码头(String)
                 huopanEnd:卸货港(String)
@@ -548,7 +550,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanCount:货量(Double)
 				huopanNote:备注(String)
 				huopanShipPosition:空船范围(String)
-				huopanShipPositionStr:空船范围(String)
+				huopanShipPositionStr:空船范围展示(String)
 				huopanShipZaizhongMin:船舶载重吨最小(Integer)
 				huopanShipZaizhongMax:船舶载重吨最大(Integer)
 				huopanShipCount:船舶数量(Integer)
@@ -588,6 +590,7 @@ URL前缀：http://47.96.79.49:8080/rest
 			errorCode:错误码
 			errorMsg:错误信息
 			data:[{
+				huopanBegin:装货港(String)
 				huopanBeginStr:装货港展示(String)
                 huopanBeginPort:装货港码头(String)
                 huopanEnd:卸货港(String)
@@ -599,7 +602,7 @@ URL前缀：http://47.96.79.49:8080/rest
 				huopanCount:货量(Double)
 				huopanNote:备注(String)
 				huopanShipPosition:空船范围(String)
-				huopanShipPositionStr:空船范围(String)
+				huopanShipPositionStr:空船范围展示(String)
 				huopanShipZaizhongMin:船舶载重吨最小(Integer)
 				huopanShipZaizhongMax:船舶载重吨最大(Integer)
 				huopanShipCount:船舶数量(Integer)
@@ -633,10 +636,9 @@ URL前缀：http://47.96.79.49:8080/rest
 	Method:POST
 	requet:
 		huopan:{
-			huopanBeginStr:装货港展示(String)
+			huopanBegin:装货港(String)
             huopanBeginPort:装货港码头(String)
             huopanEnd:卸货港(String)
-            huopanEndStr:卸货港展示(String)
 			huopanEndPort:卸货港码头(String)
 			huopanDate:装货日期(String yyyy-MM-dd)
 			huopanDateWucha:装货日期误差(Integer)
