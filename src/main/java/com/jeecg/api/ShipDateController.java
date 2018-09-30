@@ -47,15 +47,21 @@ public class ShipDateController {
         String end = huopan.getHuopanEnd();
         ChPositionEntity pobegin = systemService.getEntity(ChPositionEntity.class,begin);
         ChPositionEntity poend = systemService.getEntity(ChPositionEntity.class,end);
-        huopan.setHuopanBeginStr(pobegin.getPositionName());
-        huopan.setHuopanEndStr(poend.getPositionName());
-        String[] ids = huopan.getHuopanShipPosition().split(",");
-        StringBuffer sb = new StringBuffer();
-        for (String id : ids){
-            ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
-            sb.append(position.getPositionName()).append(",");
+        if (pobegin!=null){
+            huopan.setHuopanBeginStr(pobegin.getPositionName());
         }
-        huopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
+        if (pobegin!=null){
+            huopan.setHuopanEndStr(poend.getPositionName());
+        }
+        if (StringUtil.isNotEmpty(huopan.getHuopanShipPosition())){
+            String[] ids = huopan.getHuopanShipPosition().split(",");
+            StringBuffer sb = new StringBuffer();
+            for (String id : ids){
+                ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+                sb.append(position.getPositionName()).append(",");
+            }
+            huopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
+        }
     }
 
     private void showShipdate(ChShipDateEntity chShipDate){
@@ -146,17 +152,17 @@ public class ShipDateController {
             }
             StringBuffer hql = new StringBuffer("from ChShipDateEntity where 1=1");
             if (StringUtil.isNotEmpty(shipDateBegin)){
-                shipDateBegin = shipDateBegin.replaceAll(",","\",\"");
-                hql.append(" and shipFromPort in ").append("(\"").append(shipDateBegin).append("\")");
+                shipDateBegin = shipDateBegin.replaceAll(",","','");
+                hql.append(" and shipFromPort in ").append("('").append(shipDateBegin).append("')");
             }
             if (StringUtil.isNotEmpty(shipDateEnd)){
                 String[] ids = shipDateEnd.split(",");
                 hql.append(" and (");
                 for (int i=0;i<ids.length;i++){
                     if (i==0){
-                        hql.append(" shipToPorts like %").append(ids[i]).append("%");
+                        hql.append(" shipToPorts like '%").append(ids[i]).append("%'");
                     }else {
-                        hql.append(" or shipToPorts like %").append(shipDateEnd).append("%");
+                        hql.append(" or shipToPorts like '%").append(shipDateEnd).append("%'");
                     }
                 }
                 hql.append(")");

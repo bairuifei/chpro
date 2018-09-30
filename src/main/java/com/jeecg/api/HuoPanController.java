@@ -51,15 +51,21 @@ public class HuoPanController {
         String end = huopan.getHuopanEnd();
         ChPositionEntity pobegin = systemService.getEntity(ChPositionEntity.class,begin);
         ChPositionEntity poend = systemService.getEntity(ChPositionEntity.class,end);
-        huopan.setHuopanBeginStr(pobegin.getPositionName());
-        huopan.setHuopanEndStr(poend.getPositionName());
-        String[] ids = huopan.getHuopanShipPosition().split(",");
-        StringBuffer sb = new StringBuffer();
-        for (String id : ids){
-            ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
-            sb.append(position.getPositionName()).append(",");
+        if (pobegin!=null){
+            huopan.setHuopanBeginStr(pobegin.getPositionName());
         }
-        huopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
+        if (pobegin!=null){
+            huopan.setHuopanEndStr(poend.getPositionName());
+        }
+        if (StringUtil.isNotEmpty(huopan.getHuopanShipPosition())){
+            String[] ids = huopan.getHuopanShipPosition().split(",");
+            StringBuffer sb = new StringBuffer();
+            for (String id : ids){
+                ChPositionEntity position = systemService.getEntity(ChPositionEntity.class,id);
+                sb.append(position.getPositionName()).append(",");
+            }
+            huopan.setHuopanShipPositionStr(sb.toString().substring(0,sb.toString().length()-1));
+        }
     }
 
     private void showShipdate(ChShipDateEntity chShipDate){
@@ -153,12 +159,12 @@ public class HuoPanController {
             }
             StringBuffer hql = new StringBuffer("from ChHuopanEntity where 1=1");
             if (StringUtil.isNotEmpty(huopanBegin)){
-                huopanBegin = huopanBegin.replaceAll(",","\",\"");
-                hql.append(" and huopanBegin in ").append("(\"").append(huopanBegin).append("\")");
+                huopanBegin = huopanBegin.replaceAll(",","','");
+                hql.append(" and huopanBegin in ").append("('").append(huopanBegin).append("')");
             }
             if (StringUtil.isNotEmpty(huopanEnd)){
-                huopanEnd = huopanEnd.replaceAll(",","\",\"");
-                hql.append(" and huopanEnd in ").append("(\"").append(huopanEnd).append("\")");
+                huopanEnd = huopanEnd.replaceAll(",","','");
+                hql.append(" and huopanEnd in ").append("('").append(huopanEnd).append("')");
             }
             if (zaiZhongMin!=null && zaiZhongMax!=null){
                 //全包含
